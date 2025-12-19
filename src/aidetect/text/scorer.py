@@ -1,4 +1,5 @@
 
+from aidetect.config import AI_THRESHOLD, HUMAN_THRESHOLD
 from aidetect.text.analyzer import sentence_uniformity, repetition_score
 from aidetect.text.models import TextAnalysisResult
 
@@ -16,9 +17,9 @@ def analyze_text(text: str) -> TextAnalysisResult:
     # Pesos iniciales (experimentales)
     score = (0.6 * uniformity) + (0.4 * repetition)
 
-    if score > 0.7:
+    if score > AI_THRESHOLD:
         label = "ai"
-    elif score < 0.4:
+    elif score < HUMAN_THRESHOLD:
         label = "human"
     else:
         label = "uncertain"
@@ -28,6 +29,6 @@ def analyze_text(text: str) -> TextAnalysisResult:
         label=label,
         details={
             "sentence_uniformity": round(uniformity, 3),
-            "repetition_score": round(repetition, 3)
-        }
+            "repetition_score": round(repetition, 3),
+        },
     )
