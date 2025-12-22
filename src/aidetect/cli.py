@@ -1,31 +1,63 @@
 
 import json
-import sys
+import argparse
 from pathlib import Path
 
 from aidetect.text.scorer import analyze_text
 
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Detector de autoría IA para texto"
+    )
+
+    subparser = parser.add_subparsers(dest="command", required=True)
+
+    text_parser = subparser.add_parser("text", help="Analiza un archivo de texto")
+    text_parser.add_argument("file", type=Path, help="Archivo de texto a analizar")
+    text_parser.add_argument(
+        "--output",
+        type=Path,
+        help="Guardar resultado en archivo JSON",
+    )
+    text_parser.add_argument(
+        "--pretty",
+        action="store_true",
+        help="Salida JSON formateada",
+    )
+    text_parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Muesta información adicional",
+    )
+
+    return parser.parse_args()
+
+
+
 def main() -> None:
-    """
-    Punto de entrada del CLI
-    """
-    if len(sys.argv) < 3 or sys.argv[1] != "text":
-        print("Uso: python -m aidetect text <archivo.txt>")
-        sys.exit(1)
+    args = parse_args()
 
-    file_path = Path(sys.argv[2])
+    if args.command == "text":
+        if not args.file.exists():
+            raise SystemExit(f"Archivo no encontrado: {args.file}")
 
-    if not file_path.exists():
-        print(f"Archivo no encontrado: {file_path}")
-        sys.exit(1)
+        text = args.file.read_text(encoding="utf-8")
+        result = analyze_text(text)
 
-    text = file_path.read_text(encoding="utf-8")
+        data = result.__dict__
 
-    result = analyze_text(text)
+        indent = 2 if args.pretty else None
+        output = json.dumps(data, indent=indent)
 
-    print(json.dumps(result.__dict__, indent=2))
+        if args.verbose:
+            print("Análisis completado correctamente\n")
+
+        if args.output:
+            args.output.write_text(output, encoding="utf-8")
+        else:
+            print(output)
 
 
 if __name__ == "__main__":
