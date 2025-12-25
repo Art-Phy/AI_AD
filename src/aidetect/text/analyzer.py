@@ -46,3 +46,41 @@ def repetition_score(text: str) -> float:
     most_common = counts.most_common(1)[0][1]
 
     return most_common / len(words)
+
+
+
+def lexical_diversity(text: str) -> float:
+    """
+    Ratio de palabras únicas respecto al total.
+    Valor entre 0 y 1.
+    """
+    words = re.findall(r"\b\w+\b", text.lower())
+    if not words:
+        return 0.0
+    
+    return len(set(words)) / len(words)
+
+
+
+def average_word_length(text: str) -> float:
+    """
+    Longitud media de las palabras
+    """
+    words = re.findall(r"\b\w+\b", text)
+    if not words:
+        return 0.0
+    
+    return sum(len(w) for w in words) / len(words)
+
+
+
+def long_word_ratio(text: str, threshold: int = 7) -> float:
+    """
+    Proporción de palabras largas (>= threshold)
+    """
+    words = re.findall(r"\b\w+\b", text)
+    if not words:
+        return 0.0
+    
+    long_word = [w for w in words if len(w) >= threshold]
+    return len(long_word) / len(words)

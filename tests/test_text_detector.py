@@ -21,3 +21,18 @@ def test_natural_text_looks_human():
     )
     result = analyze_text(text)
     assert result.label != "ai"
+
+
+def test_lexical_diversity_low_for_repetitive_text():
+    text = "hola hola hola hola hola"
+    result = analyze_text(text)
+    assert result.details["lexical_diversity"] < 0.5
+
+
+def test_diverse_text_looks_less_ai():
+    text = (
+        "Cada persona escribe de manera distinta, "
+        "mezclando vocabulario, ritmos y estructuras."
+    )
+    result = analyze_text(text)
+    assert result.score < 0.7
