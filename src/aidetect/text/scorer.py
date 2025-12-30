@@ -1,5 +1,5 @@
 
-from aidetect.config import AI_THRESHOLD, HUMAN_THRESHOLD
+from aidetect.config import MODES, DEFAULT_MODE
 from aidetect.text.analyzer import (
     sentence_uniformity,
     repetition_score,
@@ -11,7 +11,21 @@ from aidetect.text.models import TextAnalysisResult
 
 
 
-def analyze_text(text: str) -> TextAnalysisResult:
+def classify_score(score: float, mode: str) -> str:
+    if mode not in MODES:
+        raise ValueError(f"Modo desconocido: {mode}")
+    
+    thresholds = MODES[mode]
+
+    if score >= thresholds["ai_threshold"]:
+        return "ai"
+    if score <= thresholds["human_threshold"]:
+        return "human"
+    return "uncertain"
+
+
+
+def analyze_text(text: str, mode: str = DEFAULT_MODE) -> TextAnalysisResult:
     """
     Analiza un texto y devuelve una estimación de autoría.
 
@@ -35,17 +49,13 @@ def analyze_text(text: str) -> TextAnalysisResult:
         0.15 * long_words
     )
 
-    if score > AI_THRESHOLD:
-        label = "ai"
-    elif score < HUMAN_THRESHOLD:
-        label = "human"
-    else:
-        label = "uncertain"
+    label = classify_score(score, mode)
 
     return TextAnalysisResult(
         score=round(score, 3),
         label=label,
         details={
+            "mode": mode,
             "sentence_uniformity": round(uniformity, 3),
             "repetition_score": round(repetition, 3),
             "lexical_diversity": round(diversity, 3),
