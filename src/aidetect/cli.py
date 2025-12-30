@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 from aidetect.text.scorer import analyze_text
+from aidetect.config import DEFAULT_MODE
 
 
 
@@ -31,6 +32,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Muesta información adicional",
     )
+    text_parser.add_argument(
+        "--mode",
+        choices=["conservative", "balanced", "aggressive"],
+        default=DEFAULT_MODE,
+        help="Modo de detección (nivel de riesgo)",
+    )
 
     return parser.parse_args()
 
@@ -44,7 +51,8 @@ def main() -> None:
             raise SystemExit(f"Archivo no encontrado: {args.file}")
 
         text = args.file.read_text(encoding="utf-8")
-        result = analyze_text(text)
+        mode = args.mode
+        result = analyze_text(text, mode=args.mode)
 
         data = result.__dict__
 
