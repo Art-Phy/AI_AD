@@ -36,3 +36,13 @@ def test_diverse_text_looks_less_ai():
     )
     result = analyze_text(text)
     assert result.score < 0.7
+
+
+def test_modes_do_not_change_score():
+    text = "Texto muy estructurado, coherente y cuidadosamente redactado."
+
+    conservative = analyze_text(text, mode="conservative")
+    aggressive = analyze_text(text, mode="aggressive")
+
+    assert conservative.score == aggressive.score
+
