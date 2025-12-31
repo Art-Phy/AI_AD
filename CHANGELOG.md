@@ -1,6 +1,21 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.2.0 - 31.12.2025
+
+#### Added
+- Modos de detección configurables (`conservative`, `balanced`, `aggressive`).
+- Separación clara entre score y política de clasificación.
+- Inclusión del modo activo en la salida de resultados.
+
+#### Changed
+- Interpretación del score desacoplada del cálculo de métricas.
+- CLI ampliado con opción `--mode`.
+
+#### Fixed
+- Paso correcto de configuración desde CLI al core del detector.
+
+---
 
 ### v0.1.0 - 26.12.2025
 
