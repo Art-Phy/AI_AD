@@ -1,11 +1,12 @@
 
 from typing import Any, Dict, Literal, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
 
 from aidetect.config import DEFAULT_MODE, MODES
 from aidetect.text.scorer import analyze_text
+from aidetect.api.security import require_api_key
 
 Mode = Literal["conservative", "balanced", "aggressive"]
 
@@ -35,7 +36,8 @@ def health() -> Dict[str, str]:
 
 
 @app.get("/v1/modes")
-def list_modes() -> Dict[str, Any]:
+def list_modes(request: Request) -> Dict[str, Any]:
+    require_api_key(request)
     return {
         "default": DEFAULT_MODE,
         "modes": MODES,
@@ -43,7 +45,8 @@ def list_modes() -> Dict[str, Any]:
 
 
 @app.post("/v1/analyze/text", response_model=AnalyzeTextResponse)
-def analyze_text_endpoint(payload: AnalyzeTextRequest) -> AnalyzeTextResponse:
+def analyze_text_endpoint(payload: AnalyzeTextRequest, request: Request) -> AnalyzeTextResponse:
+    require_api_key(request)
     mode = payload.mode or DEFAULT_MODE
 
     if mode not in MODES: # Ahora mismo es innecesario, pero útil si cambia el esquema en un futuro

@@ -42,7 +42,7 @@ def get_api_keys() -> set[str]:
     return {k.strip() for k in raw.split(",") if k.strip()}
 
 
-AUTH_DISABLE = os.getenv("AIDETECT_AUTH_DISABLE", "0") == "1"
+AUTH_DISABLED = os.getenv("AIDETECT_AUTH_DISABLE", "0") == "1"
 
 # Rate limiting (valores por defecto razonables para MVP)
 RATE_LIMIT_REQUESTS = int(os.getenv("AIDETECT_RATE_LIMIT_REQUESTS", "60"))
