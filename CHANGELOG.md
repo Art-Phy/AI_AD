@@ -1,6 +1,21 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.3.0 - 18.01.2026
+
+#### Added
+- API REST (FastAPI) para análisis de texto.
+- Documentación automática vía Swager (/docs).
+- Endpoint /v1/analyze/text con soporte de mode.
+- Endpoint /v1/modes para consultar modos disponibles.
+- Endpoint /health para healthcheck.
+- Test de API usando TestClient (Starlette) + httpx.
+
+#### Changed
+- README ampliado con sección de API
+
+---
+
 ### v0.2.0 - 31.12.2025
 
 #### Added
