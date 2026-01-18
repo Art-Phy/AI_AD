@@ -18,6 +18,7 @@ def require_api_key(request: Request) -> str:
         return "auth_disabled"
     
     valid_keys = get_api_keys()
+
     if not valid_keys:
         raise HTTPException(status_code=503, detail="Auth not configured")
     

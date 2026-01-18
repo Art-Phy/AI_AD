@@ -1,6 +1,4 @@
 
-import os
-
 """
 Configuración central del detector.
 
@@ -28,22 +26,25 @@ MODES = {
 }
 
 
+import os
+
 
 def get_api_keys() -> set[str]:
     """
     Devuelve el set de API keys válidas desde la variable de entorno.
 
     Formato:
-        AIDETECT_API_KEYS="key1key2,key3"
+        AIDETECT_API_KEYS="key1,key2,key3"
     """
-    raw = os.getenv("AIDETECT_API_Keys", "").strip()
+    raw = os.getenv("AIDETECT_API_KEYS", "").strip()
     if not raw:
         return set()
     return {k.strip() for k in raw.split(",") if k.strip()}
 
 
-AUTH_DISABLED = os.getenv("AIDETECT_AUTH_DISABLE", "0") == "1"
+AUTH_DISABLED = os.getenv("AIDETECT_AUTH_DISABLED", "0") == "1"
 
 # Rate limiting (valores por defecto razonables para MVP)
 RATE_LIMIT_REQUESTS = int(os.getenv("AIDETECT_RATE_LIMIT_REQUESTS", "60"))
 RATE_LIMIT_WINDOW_SECONDS = int(os.getenv("AIDETECT_RATE_LIMIT_WINDOW_SECONDS", "60"))
+
