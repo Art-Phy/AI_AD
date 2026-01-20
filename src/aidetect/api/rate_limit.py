@@ -38,3 +38,9 @@ class InMemoryRateLimiter:
         c.count += 1
         if c.count > self.max_requests:
             raise HTTPException(status_code=429, detail="Rate limit exceeded")
+
+
+    def reset(self) -> None:
+        """Resetea contadores (útil para tests)"""
+        self._counters.clear()
+    
