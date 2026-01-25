@@ -1,6 +1,20 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.4.0 - 25.01.2026
+- Autenticación por API key para endpoints `/v1/*`.
+- Healthcheck público en `/health`.
+- Rate limiting en memoria por API key.
+- Tests para auth y rate limiting (401/429).
+
+### Changed
+- Configuración de rate limiting leída desde entorno de forma configurable para tests y despliegue.
+
+### Fixed
+- Corrección de nombres de variables de entorno para API keys.
+
+---
+
 ### v0.3.0 - 18.01.2026
 
 #### Added
