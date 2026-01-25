@@ -44,7 +44,13 @@ def get_api_keys() -> set[str]:
 
 AUTH_DISABLED = os.getenv("AIDETECT_AUTH_DISABLED", "0") == "1"
 
+
 # Rate limiting (valores por defecto razonables para MVP)
-RATE_LIMIT_REQUESTS = int(os.getenv("AIDETECT_RATE_LIMIT_REQUESTS", "60"))
-RATE_LIMIT_WINDOW_SECONDS = int(os.getenv("AIDETECT_RATE_LIMIT_WINDOW_SECONDS", "60"))
+def get_rate_limit_requests() -> int:
+    return int(os.getenv("AIDETECT_RATE_LIMIT_REQUESTS", "60"))
+
+
+def get_rate_limit_window_seconds() -> int:
+    return int(os.getenv("AIDETECT_RATE_LIMIT_WINDOW_SECONDS", "60"))
+
 
