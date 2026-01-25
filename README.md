@@ -7,12 +7,12 @@ generado por una IA o escrito por una persona.
 El sistema se basa en **heurísticas explicables** y devuelve siempre una
 **estimación probabilística**, nunca certezas absolutas.
 
-El objetivo del proyecto es ofrecer una **señal configurable y responsable**,
-adecuada para distintos contextos de riesgo.
 
 Incluye:
  - CLI para uso local
  - API REST para integración
+ - Modos de decisión según tolerancia
+ - Autenticación por API Key + rate limiting (SaaS-ready)
 
 ---
 
@@ -20,15 +20,16 @@ Incluye:
 
 - Análisis de texto mediante métricas lingüísticas explicables
 - Score continuo (0–1)
-- Modos de detección según tolerancia al riesgo
+- Modos de detección según tolerancia: `conservative` `balanced` `aggresive`
 - Salida en JSON
 - CLI simple y portable
-- API REST con documentación autmática (Swagger)
-- Diseño modular, testeado y evaluable
+- API REST con Swagger (`/docs`)
+- API keys + rate limiting por clave
+- Tests y releases versionados
 - Sin dependencias pesadas de ML
 
 ### Estado
-- v0.3.0: API REST ready
+- v0.4.0: API REST ready
 
 ### Requisitos
 - Python 3.10+ recomendado
