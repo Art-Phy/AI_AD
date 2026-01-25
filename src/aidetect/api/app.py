@@ -9,9 +9,10 @@ from pydantic import BaseModel, Field
 from aidetect.config import (
     DEFAULT_MODE,
     MODES,
-    RATE_LIMIT_REQUESTS,
-    RATE_LIMIT_WINDOW_SECONDS,
+    get_rate_limit_requests,
+    get_rate_limit_window_seconds,
 )
+
 from aidetect.text.scorer import analyze_text
 from aidetect.api.security import require_api_key
 from aidetect.api.rate_limit import InMemoryRateLimiter
@@ -38,8 +39,8 @@ app = FastAPI(
 
 # Singleton por proceso (MVP). Se resetea al reiniciar.
 limiter = InMemoryRateLimiter(
-    max_requests=RATE_LIMIT_REQUESTS,
-    window_seconds=RATE_LIMIT_WINDOW_SECONDS,
+    max_requests=get_rate_limit_requests(),
+    window_seconds=get_rate_limit_window_seconds(),
 )
 
 
