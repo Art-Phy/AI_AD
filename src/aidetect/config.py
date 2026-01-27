@@ -54,3 +54,5 @@ def get_rate_limit_window_seconds() -> int:
     return int(os.getenv("AIDETECT_RATE_LIMIT_WINDOW_SECONDS", "60"))
 
 
+def is_ui_mode() -> bool:
+    return os.getenv("AIDETECT_UI_MODE", "0") == "1"
