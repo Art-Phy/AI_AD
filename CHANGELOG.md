@@ -1,16 +1,33 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.4.1 - 31.01.2026
+
+#### Added
+- Modo de autenticación amigable para UI local (`UI mode`).
+- Posibilidad de pasar la API key por query param (`?api_key=...`) **solo** cuando `AIDETECT_UI_MODE=1`.
+
+#### Changed
+- La detección de `UI mode` ahora se evalúa en runtime para facilitar tests y configuración dinámica.
+
+#### Security
+- El uso de API key por query param está **deshabilitado por defecto**.
+- Los endpoints `/v1/*` siguen requiriendo API key obligatoria salvo en modo explícito de UI local.
+
+---
+
 ### v0.4.0 - 25.01.2026
+
+#### Added
 - Autenticación por API key para endpoints `/v1/*`.
 - Healthcheck público en `/health`.
 - Rate limiting en memoria por API key.
 - Tests para auth y rate limiting (401/429).
 
-### Changed
+#### Changed
 - Configuración de rate limiting leída desde entorno de forma configurable para tests y despliegue.
 
-### Fixed
+#### Fixed
 - Corrección de nombres de variables de entorno para API keys.
 
 ---

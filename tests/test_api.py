@@ -38,3 +38,21 @@ def test_analyze_text_with_valid_api_key(monkeypatch):
     assert "label" in data
     assert "details" in data
     assert data["details"]["mode"] == "balanced"
+
+
+def test_analyze_text_accepts_query_key_in_ui_mode(monkeypatch):
+    monkeypatch.setenv("AIDETECT_AUTH_DISABLED", "0")
+    monkeypatch.setenv("AIDETECT_UI_MODE", "1")
+    monkeypatch.setenv("AIDETECT_API_KEYS", "devkey")
+
+    r = client.post("/v1/analyze/text?api_key=devkey", json={"text": "Hola mundo", "mode": "balanced"})
+    assert r.status_code == 200
+
+
+def test_analyze_text_rejects_query_key_when_not_ui_mode(monkeypatch):
+    monkeypatch.setenv("AIDETECT_AUTH_DISABLED", "0")
+    monkeypatch.setenv("AIDETECT_UI_MODE", "0")
+    monkeypatch.setenv("AIDETECT_API_KEYS", "devkey")
+
+    r = client.post("/v1/analyze/text?api_key=devkey", json={"text": "Hola mundo", "mode": "balanced"})
+    assert r.status_code in (401, 503)

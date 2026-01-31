@@ -76,6 +76,15 @@ uvicorn aidetect.api.app:app --reload
     - `GET /v1/mode` -> lista de modos disponibles
     - `GET /v1/analyze/text` -> análisis de texto
 
+### UI Mode (desarrollo local)
+Para facilitar la creación de una interfaz web ligera en entorno local, existe un **modo UI** opcional.
+Cuando está activado, la API acepta la API key también como parámetro de query (`?api_key=...`), además del header estándar.
+```
+export AIDETECT_UI_MODE=1
+export AIDETECT_API_KEYS=devkey
+uvicorn aidetect.api.app:app --reload
+```
+
 ### Observaciones
 - Falsos positivos muy bajos (prioridad del proyecto)
 - Falsos negativos posibles en textos IA bien redactados
@@ -86,3 +95,5 @@ uvicorn aidetect.api.app:app --reload
     - No existe detección perfecta de IA
     - Textos editados o híbridos son difíciles de clasificar
     - El resultado debe interpretarse como orientativo
+    - El uso de API keys por query param está pensado únicamente para desarrollo local y UI sencilla
+    - Para producción se recomienda usar siempre el header `X-API-Keyu`
