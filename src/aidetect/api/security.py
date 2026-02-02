@@ -26,10 +26,16 @@ def require_api_key(request: Request) -> str:
     if not valid_keys:
         raise HTTPException(status_code=503, detail="Auth not configured")
     
-    api_key = request.headers.get(API_KEY_HEADER)
+    api_key = request.query_params.get("api_key")
 
-    if is_ui_mode() and not api_key:
+    if is_ui_mode():
         api_key = request.query_params.get(API_KEY_QUERY_PARAM)
+    else:
+        api_key = None
+
+    # Si no vino por query (o no estamos en UI mode), miramos header
+    if not api_key:
+        api_key = request.headers.get(API_KEY_HEADER)
 
     if not api_key or api_key not in valid_keys:
         raise HTTPException(status_code=401, detail="Invalid API key")
