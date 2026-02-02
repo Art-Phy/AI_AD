@@ -1,6 +1,14 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.4.2 - 02.02.2026
+
+#### Fixed
+- La API key por query param (`?api_key=...`) solo se acepta cuando `AIDETECT_UI_MODE=1`.
+- En modo normal (`AIDETECT_UI_MODE=0`), la autenticación se realiza únicamente mediante el header `X-API-Key`.
+
+---
+
 ### v0.4.1 - 31.01.2026
 
 #### Added

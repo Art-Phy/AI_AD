@@ -78,7 +78,10 @@ uvicorn aidetect.api.app:app --reload
 
 ### UI Mode (desarrollo local)
 Para facilitar la creación de una interfaz web ligera en entorno local, existe un **modo UI** opcional.
-Cuando está activado, la API acepta la API key también como parámetro de query (`?api_key=...`), además del header estándar.
+Cuando `AIDETECT_UI_MODE=1`, la API acepta la API key también por query param (`?api_key=...`) además del header `X-API-Key`.
+
+>###### ⚠️ Importante: fuera de UI mode (`AIDETECT_UI_MODE=0`), el parámetro `?api_key=...` **se ignora** y solo se acepta `X-API-Key`.
+
 ```
 export AIDETECT_UI_MODE=1
 export AIDETECT_API_KEYS=devkey
