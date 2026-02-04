@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from typing import Any, Dict, Literal, Optional
 
+from fastapi.responses import HTMLResponse
 from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 
@@ -16,6 +17,7 @@ from aidetect.config import (
 from aidetect.text.scorer import analyze_text
 from aidetect.api.security import require_api_key
 from aidetect.api.rate_limit import InMemoryRateLimiter
+from aidetect.api.ui.page import render_ui_html
 
 Mode = Literal["conservative", "balanced", "aggressive"]
 
@@ -47,6 +49,11 @@ limiter = InMemoryRateLimiter(
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/ui", response_class=HTMLResponse)
+def ui() -> str:
+    return render_ui_html()
 
 
 @app.get("/v1/modes")
