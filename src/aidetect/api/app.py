@@ -2,7 +2,9 @@
 from dotenv import load_dotenv
 load_dotenv()
 from typing import Any, Dict, Literal, Optional
+from pathlib import Path
 
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
@@ -38,6 +40,9 @@ app = FastAPI(
     version="0.4.0",
     description="API para estimar la autoría IA en texto usando heurísticas explicables.",
 )
+
+static_dir = Path(__file__).resolve().parent / "static"
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 # Singleton por proceso (MVP). Se resetea al reiniciar.
 limiter = InMemoryRateLimiter(
