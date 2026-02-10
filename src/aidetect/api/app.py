@@ -2,7 +2,10 @@
 from dotenv import load_dotenv
 load_dotenv()
 from typing import Any, Dict, Literal, Optional
+from pathlib import Path
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from fastapi import FastAPI, Request
 from pydantic import BaseModel, Field
 
@@ -16,6 +19,7 @@ from aidetect.config import (
 from aidetect.text.scorer import analyze_text
 from aidetect.api.security import require_api_key
 from aidetect.api.rate_limit import InMemoryRateLimiter
+from aidetect.api.ui.page import render_ui_html
 
 Mode = Literal["conservative", "balanced", "aggressive"]
 
@@ -37,6 +41,9 @@ app = FastAPI(
     description="API para estimar la autoría IA en texto usando heurísticas explicables.",
 )
 
+static_dir = Path(__file__).resolve().parent / "static"
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
 # Singleton por proceso (MVP). Se resetea al reiniciar.
 limiter = InMemoryRateLimiter(
     max_requests=get_rate_limit_requests(),
@@ -47,6 +54,11 @@ limiter = InMemoryRateLimiter(
 @app.get("/health")
 def health() -> Dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/ui", response_class=HTMLResponse)
+def ui() -> str:
+    return render_ui_html()
 
 
 @app.get("/v1/modes")
