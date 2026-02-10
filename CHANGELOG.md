@@ -1,6 +1,18 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.5.0 - 10.02.2026
+
+#### Added
+- Web UI integrada en FastAPI (`GET /ui`) para uso por usuarios no técnicos.
+- Servido de assets estáticos (`/static/app.js`).
+- Mejoras de UX: resumen del resultado y botón para copiar JSON.
+
+#### Notes
+- La API continúa protegida por API key y rate limiting. La UI es una capa ligera sobre `/v1/analyze/text`.
+
+---
+
 ### v0.4.2 - 02.02.2026
 
 #### Fixed

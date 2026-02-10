@@ -1,18 +1,16 @@
 
-### AI Authorship Detector
+## AI Authorship Detector
 
-Detector experimental de autoría de texto para estimar si un contenido ha sido
-generado por una IA o escrito por una persona.
+Detector experimental de autoría de texto para estimar si un contenido ha sido generado por una IA o escrito por una persona.
 
-El sistema se basa en **heurísticas explicables** y devuelve siempre una
-**estimación probabilística**, nunca certezas absolutas.
-
+El sistema se basa en **heurísticas explicables** y devuelve siempre una **estimación probabilística**, nunca certezas absolutas.
 
 Incluye:
- - CLI para uso local
- - API REST para integración
- - Modos de decisión según tolerancia
- - Autenticación por API Key + rate limiting (SaaS-ready)
+- CLI para uso local
+- API REST para integración
+- Interfaz Web ligera integrada
+- Modos de decisión según tolerancia
+- Autenticación por API Key + rate limiting (SaaS-ready)
 
 ---
 
@@ -20,19 +18,27 @@ Incluye:
 
 - Análisis de texto mediante métricas lingüísticas explicables
 - Score continuo (0–1)
-- Modos de detección según tolerancia: `conservative` `balanced` `aggresive`
+- Modos de detección según tolerancia: `conservative`, `balanced`, `aggressive`
 - Salida en JSON
 - CLI simple y portable
 - API REST con Swagger (`/docs`)
 - API keys + rate limiting por clave
-- Tests y releases versionados
+- Tests automatizados y releases versionados
 - Sin dependencias pesadas de ML
 
+---
+
 ### Estado
-- v0.4.0: API REST ready
+
+- **v0.5.0:** Web UI integrada + API estable
+
+---
 
 ### Requisitos
+
 - Python 3.10+ recomendado
+
+---
 
 ### Modos de detección
 
@@ -44,18 +50,20 @@ El detector ofrece tres modos de operación:
 | `balanced` | Equilibrio entre precisión y cobertura (modo por defecto). |
 | `aggressive` | Maximiza detección de IA, asumiendo mayor riesgo de falsos positivos. |
 
-**Importante:** el *score* es estable y comparable; el modo solo cambia la interpretación.
+**Importante:** el *score* es estable y comparable; el modo solo cambia la interpretación del resultado.
 
 ---
 
 ### Instalación (desarrollo)
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 pip install -e .
+
 ```
-### Uso(CLI)
+#### Uso(CLI)
 ```bash
 python -m aidetect text archivo.txt
 python -m aidetect text archivo.txt --pretty
@@ -65,7 +73,7 @@ python -m aidetect text archivo.txt --mode conservative
 python -m aidetect text archivo.txt --mode aggressive
 
 ```
-### Uso(API)
+#### Uso(API)
 ```bash
 uvicorn aidetect.api.app:app --reload
 ```
@@ -76,17 +84,31 @@ uvicorn aidetect.api.app:app --reload
     - `GET /v1/mode` -> lista de modos disponibles
     - `GET /v1/analyze/text` -> análisis de texto
 
-### UI Mode (desarrollo local)
+#### Web UI integrada
+La API incluye una interfaz web ligera para uso de usuarios no técnicos.
+
+#### Accesso(con la API arrancada)
+```
+http://127.0.0.1:8000/ui
+```
+ - Pegar texto
+ - Elegir modo
+ - Introducir API key
+ - Ver resultados de forma visual
+ - Copiar el JSON resultante
+
+
+#### UI Mode (desarrollo local)
 Para facilitar la creación de una interfaz web ligera en entorno local, existe un **modo UI** opcional.
 Cuando `AIDETECT_UI_MODE=1`, la API acepta la API key también por query param (`?api_key=...`) además del header `X-API-Key`.
-
->###### ⚠️ Importante: fuera de UI mode (`AIDETECT_UI_MODE=0`), el parámetro `?api_key=...` **se ignora** y solo se acepta `X-API-Key`.
 
 ```
 export AIDETECT_UI_MODE=1
 export AIDETECT_API_KEYS=devkey
 uvicorn aidetect.api.app:app --reload
 ```
+>##### ⚠️ Importante: fuera de UI mode (`AIDETECT_UI_MODE=0`), el parámetro `?api_key=...` **se ignora** y solo se acepta `X-API-Key`.
+
 
 ### Observaciones
 - Falsos positivos muy bajos (prioridad del proyecto)
