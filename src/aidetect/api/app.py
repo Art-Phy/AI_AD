@@ -20,6 +20,7 @@ from aidetect.text.scorer import analyze_text
 from aidetect.api.security import require_api_key
 from aidetect.api.rate_limit import InMemoryRateLimiter
 from aidetect.api.ui.page import render_ui_html
+from aidetect.__about__ import __version__
 
 Mode = Literal["conservative", "balanced", "aggressive"]
 
@@ -59,6 +60,11 @@ def health() -> Dict[str, str]:
 @app.get("/ui", response_class=HTMLResponse)
 def ui() -> str:
     return render_ui_html()
+
+
+@app.get("/version")
+def version() -> dict[str, str]:
+    return{"version": __version__}
 
 
 @app.get("/v1/modes")
