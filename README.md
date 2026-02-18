@@ -30,7 +30,7 @@ Incluye:
 
 ### Estado
 
-- **v0.5.0:** Web UI integrada + API estable
+- **v0.6.0:** Web UI integrada + API estable
 
 ---
 
@@ -83,6 +83,7 @@ uvicorn aidetect.api.app:app --reload
     - `GET /health` -> estado del servicio
     - `GET /v1/mode` -> lista de modos disponibles
     - `GET /v1/analyze/text` -> análisis de texto
+    - `GET /version` -> devuelve la versión en ejecución.
 
 #### Web UI integrada
 La API incluye una interfaz web ligera para uso de usuarios no técnicos.
@@ -96,6 +97,7 @@ http://127.0.0.1:8000/ui
  - Introducir API key
  - Ver resultados de forma visual
  - Copiar el JSON resultante
+ - Descargar un **informe JSON** con metadatos (timestamp, request_id, modo, etc.)
 
 
 #### UI Mode (desarrollo local)
