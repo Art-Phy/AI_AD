@@ -1,6 +1,17 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.6.0 - 18.02.2026
+
+#### Added
+- `GET /version` para exponer la versión del servicio.
+- Middleware de `request_id`:
+  - Genera `X-Request-ID` en cada respuesta (o conserva el que envíe el cliente).
+- Logging básico por request (método, path, status, ms, request_id).
+- Web UI: exportar informe en JSON descargable desde la interfaz.
+
+---
+
 ### v0.5.0 - 10.02.2026
 
 #### Added
