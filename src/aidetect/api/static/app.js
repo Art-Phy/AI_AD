@@ -47,7 +47,7 @@ btn.addEventListener('click', async () => {
   btn.classList.add('loading');
 
   try {
-    const url = `/v1/analyze/text?api_key=${encodeURIComponent(apiKey)}`;
+    const url = `/v1/analyze/text/report?api_key=${encodeURIComponent(apiKey)}`;
 
     const res = await fetch(url, {
       method: 'POST',
@@ -70,24 +70,37 @@ btn.addEventListener('click', async () => {
       return;
     }
 
-    const label = data.label ?? 'unknown';
-    const score = fmt(data.score);
-    const usedMode = data.details?.mode ?? mode;
+    // data ahora ES el report
+    const result = data.result ?? {};
+    const details = result.details ?? {};
 
-    summary.textContent = `Resultado: ${label.toUpperCase()}  |  score=${score}  |  mode=${usedMode}`;
+    const label = result.label ?? 'unknown';
+    const score = fmt(result.score);
+    const usedMode = data.input?.mode ?? details.mode ?? mode;
+
+    let extra = '';
+    if (data.saved_to) {
+    extra = `  |  saved_to=${data.saved_to}`;
+    }
+
+    summary.textContent = `Resultado: ${String(label).toUpperCase()}  |  score=${score}  |  mode=${usedMode}${extra}`;
     out.textContent = JSON.stringify(data, null, 2);
 
-    // Preparamos un "informe" exportable
-    lastSuccessful = {
-      generated_at: nowIso(),
-      request_id: requestId,
-      input: {
-        mode: usedMode,
-        text_length: (text || '').length,
-        // No guardamos el texto completo por defecto (privacidad).
-        // Si quieres incluirlo, lo añadimos luego como opción.
-      },
-      result: data
+    // Para exportar: descargamos el report tal cual lo devuelve la API
+    lastSuccessful = data;
+
+    show(copyBtn, true);
+    copyBtn.onclick = async () => {
+      await navigator.clipboard.writeText(out.textContent);
+      copyBtn.textContent = 'Copiado ✅';
+      setTimeout(() => (copyBtn.textContent = 'Copiar resultado'), 1200);
+    };
+
+    show(downloadBtn, true);
+    downloadBtn.onclick = () => {
+      if (!lastSuccessful) return;
+      const ts = (lastSuccessful.generated_at || new Date().toISOString()).replace(/[:.]/g, '-');
+      downloadJson(`aidetect-report-${ts}.json`, lastSuccessful);
     };
 
     show(copyBtn, true);
