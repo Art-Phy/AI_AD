@@ -23,6 +23,10 @@ from aidetect.api.security import require_api_key
 from aidetect.api.rate_limit import InMemoryRateLimiter
 from aidetect.api.ui.page import render_ui_html
 from aidetect.__about__ import __version__
+from aidetect.reporting.models import TextAnalysisReport
+from aidetect.reporting.storage import save_report
+from aidetect.config import get_reports_dir
+
 
 Mode = Literal["conservative", "balanced", "aggressive"]
 
@@ -86,3 +90,33 @@ def analyze_text_endpoint(payload: AnalyzeTextRequest, request: Request) -> Anal
 
     result = analyze_text(payload.text, mode=payload.mode)
     return AnalyzeTextResponse(score=result.score, label=result.label, details=result.details)
+
+
+@app.post("/v1/analyze/text/report")
+def analyze_text_report(payload: AnalyzeTextRequest, request: Request) -> Dict[str, Any]:
+    api_key = require_api_key(request)
+    limiter.check(api_key)
+
+    result = analyze_text(payload.text, mode=payload.mode)
+
+    request_id = request.headers.get("X-Request_ID") # el middleware también lo añade en respuesta
+    report = TextAnalysisReport(
+        generated_at=TextAnalysisReport.now_iso(),
+        request_id=request_id,
+        input={
+            "mode": payload.mode,
+            "text_length": len(payload.text),
+        },
+        result={
+            "score": result.score,
+            "label": result.label,
+            "details": result.details,
+        },
+    )
+
+    saved_path = save_report(report, get_reports_dir())
+
+    data = report.to_dict()
+    if saved_path:
+        data["saved_to"] = str(saved_path)
+    return data
