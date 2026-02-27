@@ -30,7 +30,7 @@ Incluye:
 
 ### Estado
 
-- **v0.6.0:** Web UI integrada + API estable
+- **v0.7.0:** Reports + optional persistence
 
 ---
 
@@ -111,6 +111,27 @@ uvicorn aidetect.api.app:app --reload
 ```
 >##### ⚠️ Importante: fuera de UI mode (`AIDETECT_UI_MODE=0`), el parámetro `?api_key=...` **se ignora** y solo se acepta `X-API-Key`.
 
+#### Reportes (API + UI)
+
+### Endpoint de report
+
+Además del análisis estándar, existe un endpoint que devuelve un **informe** con metadatos:
+
+- `POST /v1/analyze/text/report`
+
+Incluye:
+- `generated_at` (timestamp)
+- `request_id`
+- `input` (mode, text_length)
+- `result` (score, label, details)
+- `saved_to` (solo si se guarda en disco)
+
+Ejemplo (UI mode):
+
+```bash
+curl -s -X POST "http://127.0.0.1:8000/v1/analyze/text/report?api_key=devkey" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"Hola mundo. Hola mundo","mode":"balanced"}'
 
 ### Observaciones
 - Falsos positivos muy bajos (prioridad del proyecto)
