@@ -1,6 +1,18 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.7.0 - 27.02.2026
+
+#### Added
+- Nuevo endpoint `POST /v1/analyze/text/report` que devuelve un informe completo (report) con metadatos.
+- Persistencia opcional de reportes en disco mediante `AIDETECT_REPORTS_DIR`.
+- La Web UI ahora consume el endpoint de report y permite descargar el informe tal cual lo devuelve la API.
+
+#### Environment
+- `AIDETECT_REPORTS_DIR` (opcional): ruta donde guardar reportes en JSON.
+
+---
+
 ### v0.6.0 - 18.02.2026
 
 #### Added
