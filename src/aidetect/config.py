@@ -59,3 +59,15 @@ def is_ui_mode() -> bool:
 
 def get_reports_dir() -> str | None:
     return os.getenv("AIDETECT_REPORTS_DIR") or None
+
+def get_log_level() -> str:
+    return os.getenv("AIDETECT_LOG_LEVEL", "INFO").upper()
+
+def get_log_file() -> str | None:
+    return os.getenv("AIDETECT_LOG_FILE") or None
+
+def get_log_max_bytes() -> int:
+    return int(os.getenv("AIDETECT_LOG_MAX_BYTES", str(1_000_000)))
+
+def get_log_backup_count() -> int:
+    return int(os.getenv("AIDETECT_LOG_BACKUP_COUNT", "3"))
