@@ -26,6 +26,7 @@ from aidetect.__about__ import __version__
 from aidetect.reporting.models import TextAnalysisReport
 from aidetect.reporting.storage import save_report
 from aidetect.config import get_reports_dir
+from aidetect.logging_setup import setup_logging
 
 
 Mode = Literal["conservative", "balanced", "aggressive"]
@@ -48,6 +49,7 @@ app = FastAPI(
     description="API para estimar la autoría IA en texto usando heurísticas explicables.",
 )
 
+setup_logging()
 app.add_middleware(RequestLoggingMiddleware)
 
 static_dir = Path(__file__).resolve().parent / "static"
@@ -58,8 +60,6 @@ limiter = InMemoryRateLimiter(
     max_requests=get_rate_limit_requests(),
     window_seconds=get_rate_limit_window_seconds(),
 )
-
-logging.basicConfig(level=logging.INFO)
 
 @app.get("/health")
 def health() -> Dict[str, str]:
