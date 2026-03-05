@@ -1,6 +1,20 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+### v0.8.0 - 05.03.2026
+
+#### Added
+- Logging estructurado en JSON (una línea por evento) para trazabilidad y observabilidad.
+- Configuración por variables de entorno para nivel de log y fichero rotativo.
+
+#### Environment
+- `AIDETECT_LOG_LEVEL` (default: `INFO`)
+- `AIDETECT_LOG_FILE` (opcional): ruta del fichero de logs (si no se define, solo consola)
+- `AIDETECT_LOG_MAX_BYTES` (default: `1000000`)
+- `AIDETECT_LOG_BACKUP_COUNT` (default: `3`)
+
+---
+
 ### v0.7.0 - 27.02.2026
 
 #### Added

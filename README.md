@@ -30,7 +30,7 @@ Incluye:
 
 ### Estado
 
-- **v0.7.0:** Reports + optional persistence
+- **v0.8.0:** JSON logging + rotation
 
 ---
 
@@ -111,9 +111,14 @@ uvicorn aidetect.api.app:app --reload
 ```
 >##### ⚠️ Importante: fuera de UI mode (`AIDETECT_UI_MODE=0`), el parámetro `?api_key=...` **se ignora** y solo se acepta `X-API-Key`.
 
-#### Reportes (API + UI)
+#### Logging
+La API genera logs estructurados en formato JSON, pensados para depuración y trazabilidad.
+- Configuración:
+```
+export AIDETECT_LOG_LEVEL=INFO
+```
 
-### Endpoint de report
+#### Endpoint de report (API + UI)
 
 Además del análisis estándar, existe un endpoint que devuelve un **informe** con metadatos:
 
