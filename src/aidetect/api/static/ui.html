@@ -1,57 +1,143 @@
 
-"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <title>AI Authorship Detector — UI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#f3f4f6; margin:0; padding:0; }
-    .container { max-width: 760px; margin: 0 auto; padding: 24px; }
-    .card { background:white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.08); padding: 20px; }
-    h1 { margin: 0 0 6px 0; }
-    .hint { font-size: 12px; color:#6b7280; margin: 0 0 14px 0; }
-    label { display:block; margin-top: 12px; font-weight: 600; }
-    textarea, input, select, button { width:100%; margin-top: 6px; padding: 10px; font-size: 14px; }
-    textarea { min-height: 160px; resize: vertical; }
-    .row { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .result { margin-top: 16px; padding: 12px; background:#f9fafb; border:1px solid #e5e7eb; border-radius: 8px; white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 13px; }
-    .loading { opacity: .6; pointer-events:none; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#f3f4f6;
+      margin:0;
+      padding:0;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .card {
+      background:white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0 0 6px 0;
+    }
+
+    .hint {
+      font-size: 12px;
+      color:#6b7280;
+      margin: 0 0 14px 0;
+    }
+
+    label {
+      display:block;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    textarea, input, select, button {
+      width:100%;
+      margin-top: 6px;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .row {
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 12px;
+      background:#f9fafb;
+      border:1px solid #e5e7eb;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .loading {
+      opacity: .6;
+      pointer-events:none;
+    }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="card">
-      <h1>🧠 AI Authorship Detector</h1>
-      <p class="hint">UI integrada. Para usar query key: <code>AIDETECT_UI_MODE=1</code>. Recomendado: header <code>X-API-Key</code>.</p>
 
-      <label>Texto a analizar</label>
-      <textarea id="text">Hola mundo. Hola mundo.</textarea>
+<div class="container">
+  <div class="card">
 
-      <div class="row">
-        <div>
-          <label>Modo</label>
-          <select id="mode">
-            <option value="balanced">balanced</option>
-            <option value="conservative">conservative</option>
-            <option value="aggressive">aggressive</option>
-          </select>
-        </div>
-        <div>
-          <label>API Key</label>
-          <input id="apiKey" placeholder="devkey" value="devkey" />
-        </div>
+    <h1>🧠 AI Authorship Detector</h1>
+
+    <p class="hint">
+      UI integrada. Para usar query key: <code>AIDETECT_UI_MODE=1</code>.
+      Recomendado en producción: <code>X-API-Key</code>.
+    </p>
+
+    <label>Texto a analizar</label>
+    <textarea id="text">Hola mundo. Hola mundo.</textarea>
+
+    <div class="row">
+      <div>
+        <label>Modo</label>
+        <select id="mode">
+          <option value="balanced">balanced</option>
+          <option value="conservative">conservative</option>
+          <option value="aggressive">aggressive</option>
+        </select>
       </div>
 
-      <button id="btn" style="margin-top:14px;">Analizar texto</button>
-      <div id="summary" class="result" hidden></div>
-      <button id="copyBtn" style="margin-top:10px;" hidden>Copiar resultado</button>
-      <button id="downloadBtn" style="margin-top:10px;" hidden>Descargar informe (JSON)</button>
-      <div id="output" class="result" hidden></div>
+      <div>
+        <label>API Key</label>
+        <input id="apiKey" placeholder="devkey" value="devkey" />
+      </div>
     </div>
-  </div>
 
-  <script src="/static/app.js"></script>
+    <label style="margin-top:12px;">
+      <input type="checkbox" id="includeText">
+      Incluir texto completo en el informe (⚠️ privacidad)
+    </label>
+
+    <p class="hint">
+      Por defecto el informe solo guarda la longitud del texto.
+      Activa esta opción solo si necesitas guardar el contenido completo.
+    </p>
+
+    <button id="btn" style="margin-top:14px;">Analizar texto</button>
+
+    <div id="summary" class="result" hidden></div>
+
+    <button id="copyBtn" style="margin-top:10px;" hidden>
+      Copiar resultado
+    </button>
+
+    <button id="downloadBtn" style="margin-top:10px;" hidden>
+      Descargar informe (JSON)
+    </button>
+
+    <div id="output" class="result" hidden></div>
+
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
 
 </body>
-</html>"""
+</html>

@@ -6,6 +6,7 @@ Detector experimental de autoría de texto para estimar si un contenido ha sido 
 El sistema se basa en **heurísticas explicables** y devuelve siempre una **estimación probabilística**, nunca certezas absolutas.
 
 Incluye:
+
 - CLI para uso local
 - API REST para integración
 - Interfaz Web ligera integrada
@@ -23,6 +24,8 @@ Incluye:
 - CLI simple y portable
 - API REST con Swagger (`/docs`)
 - API keys + rate limiting por clave
+- Logging estructurado en JSON
+- Endpoint de reportes descargables
 - Tests automatizados y releases versionados
 - Sin dependencias pesadas de ML
 
@@ -30,13 +33,13 @@ Incluye:
 
 ### Estado
 
-- **v0.8.0:** JSON logging + rotation
+- **v0.9.0:** Privacy-aware reporting (`include_text`)
 
 ---
 
 ### Requisitos
 
-- Python 3.10+ recomendado
+- Python **3.10+** recomendado
 
 ---
 
@@ -81,9 +84,10 @@ uvicorn aidetect.api.app:app --reload
     - Swagger UI: http://127.0.0.1:8000/docs
 - Endpoints
     - `GET /health` -> estado del servicio
-    - `GET /v1/mode` -> lista de modos disponibles
-    - `GET /v1/analyze/text` -> análisis de texto
-    - `GET /version` -> devuelve la versión en ejecución.
+    - `GET /version` -> devuelve la versión en ejecución
+    - `GET /v1/modes` -> lista de modos disponibles
+    - `POST /v1/analyze/text` -> análisis de texto
+    - `POST /v1/analyz/text/report` -> genera informe completo
 
 #### Web UI integrada
 La API incluye una interfaz web ligera para uso de usuarios no técnicos.
@@ -101,7 +105,7 @@ http://127.0.0.1:8000/ui
 
 
 #### UI Mode (desarrollo local)
-Para facilitar la creación de una interfaz web ligera en entorno local, existe un **modo UI** opcional.
+Para facilitar la creación de una interfaz web ligera en entorno local, existe un **modo UI**.
 Cuando `AIDETECT_UI_MODE=1`, la API acepta la API key también por query param (`?api_key=...`) además del header `X-API-Key`.
 
 ```
