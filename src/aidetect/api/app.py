@@ -93,20 +93,25 @@ def analyze_text_endpoint(payload: AnalyzeTextRequest, request: Request) -> Anal
 
 
 @app.post("/v1/analyze/text/report")
-def analyze_text_report(payload: AnalyzeTextRequest, request: Request) -> Dict[str, Any]:
+def analyze_text_report(payload: AnalyzeTextRequest, request: Request, include_text: bool = False) -> Dict[str, Any]:
     api_key = require_api_key(request)
     limiter.check(api_key)
 
     result = analyze_text(payload.text, mode=payload.mode)
 
-    request_id = request.headers.get("X-Request_ID") # el middleware también lo añade en respuesta
+    request_id = request.headers.get("X-Request-ID") # el middleware también lo añade en respuesta
+    report_input = {
+        "mode": payload.mode,
+        "text_length": len(payload.text),
+    }
+
+    if include_text:
+        report_input["text"] = payload.text
+
     report = TextAnalysisReport(
         generated_at=TextAnalysisReport.now_iso(),
         request_id=request_id,
-        input={
-            "mode": payload.mode,
-            "text_length": len(payload.text),
-        },
+        input=report_input,
         result={
             "score": result.score,
             "label": result.label,

@@ -1,6 +1,24 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
+# CHANGELOG.md
+
+### v0.9.0 - 09.03.2026
+
+#### Added
+- Opción `include_text` en el endpoint `/v1/analyze/text/report`.
+- Permite incluir el texto completo dentro del informe solo cuando se solicita explícitamente.
+
+#### Privacy
+- Por defecto los reportes solo almacenan `text_length`.
+- El texto completo solo se guarda cuando `include_text=true`.
+
+#### UI
+- Checkbox en la Web UI para incluir el texto completo en el informe.
+- Aviso de privacidad para evitar guardar contenido sensible accidentalmente.
+
+---
+
 ### v0.8.0 - 05.03.2026
 
 #### Added
