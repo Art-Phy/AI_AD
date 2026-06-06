@@ -1,5 +1,10 @@
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-green)
+![Tests](https://img.shields.io/badge/Tests-24_Passing-success)
+![Version](https://img.shields.io/badge/Version-v1.0.0-orange)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-## AI Authorship Detector
+### AI Authorship Detector
 
 Detector experimental de autoría de texto para estimar si un contenido ha sido generado por una IA o escrito por una persona.
 
@@ -11,39 +16,64 @@ Incluye:
 - API REST para integración
 - Interfaz Web ligera integrada
 - Modos de decisión según tolerancia
-- Autenticación por API Key + rate limiting (SaaS-ready)
+- Autenticación por API Key + rate limiting
+- Logging estructurado en JSON
+- Endpoint de reportes descargables
+- Controles de privacidad para reportes
 
 ---
 
-### Características
+#### Características
 
 - Análisis de texto mediante métricas lingüísticas explicables
 - Score continuo (0–1)
-- Modos de detección según tolerancia: `conservative`, `balanced`, `aggressive`
+- Modos de detección: `conservative`, `balanced`, `aggressive`
 - Salida en JSON
 - CLI simple y portable
 - API REST con Swagger (`/docs`)
 - API keys + rate limiting por clave
+- Request ID por petición (`X-Request-ID`)
 - Logging estructurado en JSON
-- Endpoint de reportes descargables
+- Web UI integrada en FastAPI
+- Reportes JSON con persistencia opcional
 - Tests automatizados y releases versionados
 - Sin dependencias pesadas de ML
 
 ---
 
-### Estado
+#### Estado
 
-- **v0.9.0:** Privacy-aware reporting (`include_text`)
+- **v1.0.0:** First Stable Release
+
+#### Requisitos
+
+- Python **3.10+**
+
+#### Instalación
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pip install -e .
+```
 
 ---
 
-### Requisitos
-
-- Python **3.10+** recomendado
+#### Uso CLI
+```
+aidetect-cli text archivo.txt
+aidetect-cli text archivo.txt --pretty
+aidetect-cli text archivo.txt --output resultado.json
+aidetect-cli text archivo.txt --verbose
+aidetect-cli text archivo.txt --mode conservative
+aidetect-cli text archivo.txt --mode aggressive
+```
+También se puede usar `python -m aidetect text archivo.txt`
 
 ---
 
-### Modos de detección
+#### Modos de detección
 
 El detector ofrece tres modos de operación:
 
@@ -57,100 +87,101 @@ El detector ofrece tres modos de operación:
 
 ---
 
-### Instalación (desarrollo)
+#### Uso API
+- Ejecuta servidor `AIDETECT_API_KEYS=devkey aidetect-api`
+- Se puede arrancar directamente desde **Uvicorn** `AIDETECT_API_KEYS=devkey uvicorn aidetect.api.app:app --reload`
+- Documentación `http://127.0.0.1:8000/docs`
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-pip install -e .
+#### Endpoints
+| Método | Endpoint | Descripción |
+|----------------------|----------------------|----------------------|
+| GET | /health | Estado del servicio |
+| GET | /version | Versión de ejecución |
+| GET | /v1/modes | Lista de modos disponibles |
+| POST | /v1/analyze/text | Análisis de texto |
+| POST | /v1/analyze/text/report | Informe completo del análisis |
+| GET | /ui | Interfaz integrada |
 
-```
-#### Uso(CLI)
-```bash
-python -m aidetect text archivo.txt
-python -m aidetect text archivo.txt --pretty
-python -m aidetect text archivo.txt --output resultado.json
-python -m aidetect text archivo.txt --verbose
-python -m aidetect text archivo.txt --mode conservative
-python -m aidetect text archivo.txt --mode aggressive
-
-```
-#### Uso(API)
-```bash
-uvicorn aidetect.api.app:app --reload
-```
-- Documentación interactiva
-    - Swagger UI: http://127.0.0.1:8000/docs
-- Endpoints
-    - `GET /health` -> estado del servicio
-    - `GET /version` -> devuelve la versión en ejecución
-    - `GET /v1/modes` -> lista de modos disponibles
-    - `POST /v1/analyze/text` -> análisis de texto
-    - `POST /v1/analyz/text/report` -> genera informe completo
+---
 
 #### Web UI integrada
-La API incluye una interfaz web ligera para uso de usuarios no técnicos.
+La API incluye una interfaz web ligera para usuarios no técnicos.
 
-#### Accesso(con la API arrancada)
-```
-http://127.0.0.1:8000/ui
-```
- - Pegar texto
- - Elegir modo
- - Introducir API key
- - Ver resultados de forma visual
- - Copiar el JSON resultante
- - Descargar un **informe JSON** con metadatos (timestamp, request_id, modo, etc.)
+```http://127.0.0.1:8000/ui````
 
+* Pegar texto
+* Elegir modo
+* Introducir API key
+* Ver resultados de forma visual
+* Copiar el JSON resultante
+* Descargar un informe JSON con metadatos
+* Elegir si se incluye o no el texto completo en el informe
 
-#### UI Mode (desarrollo local)
-Para facilitar la creación de una interfaz web ligera en entorno local, existe un **modo UI**.
-Cuando `AIDETECT_UI_MODE=1`, la API acepta la API key también por query param (`?api_key=...`) además del header `X-API-Key`.
+#### Autenticación
+Los endpoints /v1/*requieren API key.
 
+#### UI Mode
+Para facilitar el uso de la interfaz web en desarrollo local, existe un modo UI.
 ```
 export AIDETECT_UI_MODE=1
 export AIDETECT_API_KEYS=devkey
-uvicorn aidetect.api.app:app --reload
+aidetect-api
 ```
->##### ⚠️ Importante: fuera de UI mode (`AIDETECT_UI_MODE=0`), el parámetro `?api_key=...` **se ignora** y solo se acepta `X-API-Key`.
+
+---
+
+#### Rate limiting
+La API aplica limiting por API key
+```
+export AIDETECT_RATE_LIMIT_REQUESTS=60
+export AIDETECT_RATE_LIMIT_WINDOW_SECONDS=60
+```
 
 #### Logging
-La API genera logs estructurados en formato JSON, pensados para depuración y trazabilidad.
-- Configuración:
+La API genera logs estructurados en **JSON**
+```export AIDETECT_LOG_LEVEL=INFO```
+
+Logs a ficheros rotaticvos
 ```
-export AIDETECT_LOG_LEVEL=INFO
+export AIDETECT_LOG_FILE="./logs/aidetect.log"
+export AIDETECT_LOG_MAX_BYTES=1000000
+export AIDETECT_LOG_BACKUP_COUNT=3
 ```
+---
 
-#### Endpoint de report (API + UI)
+#### Reportes
+```POST /v1/analyze/text/report```
 
-Además del análisis estándar, existe un endpoint que devuelve un **informe** con metadatos:
+Devuelve un informe completo con metadatos:
+* generated_at
+* request_id
+* input
+* result
+* saved_to si se guarda en disco
 
-- `POST /v1/analyze/text/report`
+Para guardar los reportes automáticamente en disco:
+```export AIDETECT_REPORTS_DIR="./reports"```
 
-Incluye:
-- `generated_at` (timestamp)
-- `request_id`
-- `input` (mode, text_length)
-- `result` (score, label, details)
-- `saved_to` (solo si se guarda en disco)
+Por defecto, los informes **no guardan el texto completo**, sólo su longitud:
+```
+{
+  "input": {
+    "mode": "balanced",
+    "text_length": 22
+  }
+}
+```
+Si necesitas incluir texto completo
+```POST /v1/analyze/text/report?include_text=true```
 
-Ejemplo (UI mode):
+> ###### La web UI incluye un checkbox para activar esta opción.
 
-```bash
-curl -s -X POST "http://127.0.0.1:8000/v1/analyze/text/report?api_key=devkey" \
-  -H "Content-Type: application/json" \
-  -d '{"text":"Hola mundo. Hola mundo","mode":"balanced"}'
+---
 
-### Observaciones
-- Falsos positivos muy bajos (prioridad del proyecto)
-- Falsos negativos posibles en textos IA bien redactados
-- Textos híbridos tienden a `uncertain`
-
-> [!WARNING]
-> ##### Limitaciones
+#### Limitaciones
     - No existe detección perfecta de IA
     - Textos editados o híbridos son difíciles de clasificar
     - El resultado debe interpretarse como orientativo
     - El uso de API keys por query param está pensado únicamente para desarrollo local y UI sencilla
     - Para producción se recomienda usar siempre el header `X-API-Keyu`
+    - Textos híbridos tienden a clasificarse como **uncertain**

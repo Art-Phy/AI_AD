@@ -1,7 +1,34 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
-# CHANGELOG.md
+### v1.0.0 - 06.06.2026
+
+#### Stable Release
+
+- Primera versión estable del proyecto.
+- Consolidación de todas las funcionalidades desarrolladas durante la serie v0.x.
+- Preparado para uso como herramienta CLI, API REST e interfaz web integrada.
+
+#### Packaging
+
+- Distribución como paquete Python instalable.
+- Nuevos comandos:
+  - `aidetect-cli`
+  - `aidetect-api`
+- Configuración mediante `pyproject.toml`.
+
+#### Infrastructure
+
+- Revisión completa de estructura y configuración del proyecto.
+- Validación de instalación en entorno limpio.
+- Actualización de documentación y versión estable.
+
+#### Testing
+
+- Suite completa de tests validada antes de la release.
+- Compatibilidad verificada para CLI, API, UI, reporting, logging y seguridad.
+
+---
 
 ### v0.9.0 - 09.03.2026
 
