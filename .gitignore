@@ -1,20 +1,23 @@
+# .gitignore
 
----
-
-## Archivos pequeños que faltan (te los dictó aquí mismo)
-
-### `.gitignore` (para Python + VSCode + venv)
-```gitignore
 .venv/
 __pycache__/
 *.pyc
+
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+
 .DS_Store
 .vscode/
+
 dist/
 build/
 *.egg-info/
+
 .env
-```
+
+logs/
+reports/
+
+*.log
