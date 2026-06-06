@@ -178,8 +178,7 @@ Si necesitas incluir texto completo
 
 ---
 
-> [!WARNING]
-> ##### Limitaciones
+#### Limitaciones
     - No existe detección perfecta de IA
     - Textos editados o híbridos son difíciles de clasificar
     - El resultado debe interpretarse como orientativo

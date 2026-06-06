@@ -1,8 +1,6 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
-# CHANGELOG.md
-
 ### v1.0.0 - 06.06.2026
 
 #### Stable Release
