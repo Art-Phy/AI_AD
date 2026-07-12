@@ -57,17 +57,41 @@ def get_rate_limit_window_seconds() -> int:
 def is_ui_mode() -> bool:
     return os.getenv("AIDETECT_UI_MODE", "0") == "1"
 
+
 def get_reports_dir() -> str | None:
     return os.getenv("AIDETECT_REPORTS_DIR") or None
+
 
 def get_log_level() -> str:
     return os.getenv("AIDETECT_LOG_LEVEL", "INFO").upper()
 
+
 def get_log_file() -> str | None:
     return os.getenv("AIDETECT_LOG_FILE") or None
+
 
 def get_log_max_bytes() -> int:
     return int(os.getenv("AIDETECT_LOG_MAX_BYTES", str(1_000_000)))
 
+
 def get_log_backup_count() -> int:
     return int(os.getenv("AIDETECT_LOG_BACKUP_COUNT", "3"))
+
+
+
+def get_api_host() -> str:
+    """
+    Devuelve la dirección en la que escuchará la API.
+
+    Por defecto usa 127.0.0.1 para desarrollo local.
+    """
+    return os.getenv("AIDETECT_API_HOST", "127.0.0.1")
+
+
+def get_api_port() -> int:
+    """
+    Devuelve el puerto en el que escuchará la API.
+
+    Por defecto usa el puerto 8000.
+    """
+    return int(os.getenv("AIDETECT_API_PORT", "8000"))

@@ -1,10 +1,16 @@
 
 import uvicorn
 
-def main():
+from aidetect.config import get_api_host, get_api_port
+
+
+def main() -> None:
+    """
+    Arranca la API utilizando la configuración del entorno.
+    """
     uvicorn.run(
         "aidetect.api.app:app",
-        host="127.0.0.1",
-        port=8000,
+        host=get_api_host(),
+        port=get_api_port(),
         reload=False,
     )
