@@ -1,7 +1,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-green)
 ![Tests](https://img.shields.io/badge/Tests-24_Passing-success)
-![Version](https://img.shields.io/badge/Version-v1.0.0-orange)
+![Version](https://img.shields.io/badge/Version-v1.0.1-orange)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ### AI Authorship Detector

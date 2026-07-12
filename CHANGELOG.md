@@ -1,5 +1,19 @@
 
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
+---
+
+### v1.0.1 - 12.07.2026
+
+#### Added
+
+- Configuración del host de la API mediante `AIDETECT_API_HOST`.
+- Configuración del puerto de la API mediante `AIDETECT_API_PORT`.
+
+#### Deployment
+
+- Preparación del comando `aidetect-api` para despliegues en servidores y redes locales.
+
+---
 
 ### v1.0.0 - 06.06.2026
 
