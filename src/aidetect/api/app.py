@@ -45,7 +45,7 @@ class AnalyzeTextResponse(BaseModel):
 
 app = FastAPI(
     title="AI Authorship Detector API",
-    version="1.0.0",
+    version="1.0.2",
     description="API para estimar la autoría IA en texto usando heurísticas explicables.",
 )
 

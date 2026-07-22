@@ -2,6 +2,23 @@
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 ---
 
+### v1.0.2 - 22.07.2026
+
+#### Added
+
+- Nueva sección de Deployment en el README.
+- Documentadas las variables de entorno para despliegues.
+- Mejoras generales de formato y ejemplos.
+
+#### Deployment
+
+- Validado el despliegue completo en Linux mediante `systemd`.
+- Configuración mediante `EnvironmentFile`.
+- Funcionamiento verificado tras reinicio del sistema.
+- Validado el despliegue en Raspberry Pi como servicio persistente.
+
+---
+
 ### v1.0.1 - 12.07.2026
 
 #### Added
