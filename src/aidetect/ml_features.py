@@ -5,6 +5,15 @@ from collections import Counter
 from aidetect.text.analyzer import sentence_lengths, lexical_diversity
 
 
+FEATURE_NAMES = (
+    "avg_sentence_length",
+    "sentence_length_variance",
+    "lexical_diversity",
+    "punctuation_ratio",
+    "max_word_frequency_ratio",
+)
+
+
 
 def average_sentence_length(text: str) -> float:
     """Longitud media de las frases, medida en palabras"""
@@ -64,3 +73,11 @@ def extract_features(text: str) -> dict[str, float]:
         "punctuation_ratio": punctuation_ratio(text),
         "max_word_frequency_ratio": max_word_frequency_ratio(text),
     }
+
+
+
+def feature_vector(text: str) -> list[float]:
+    """Devuelve las features en un orden estable para modelos ML"""
+    features = extract_features(text)
+
+    return [features[name] for name in FEATURE_NAMES]
