@@ -1,5 +1,5 @@
-
 from aidetect.ml_features import feature_vector
+from aidetect.ml_samples import DatasetSample
 
 
 LABELS = {
@@ -10,7 +10,9 @@ LABELS = {
 
 
 def encode_label(label: str) -> int:
-    """Convierte una etiqueta textual en su representación numérica"""
+    """
+    Convierte una etiqueta textual en su representación numérica.
+    """
     try:
         return LABELS[label]
     except KeyError as exc:
@@ -18,13 +20,17 @@ def encode_label(label: str) -> int:
 
 
 
-def build_dataset(samples: list[tuple[str, str]]) -> tuple[list[list[float]], list[int]]:
-    """Construye X e y a partir de pares (texto, etiqueta)"""
+def build_dataset(
+    samples: list[DatasetSample],
+) -> tuple[list[list[float]], list[int]]:
+    """
+    Construye X e y a partir de muestras etiquetadas.
+    """
     X = []
     y = []
 
-    for text, label in samples:
-        X.append(feature_vector(text))
-        y.append(encode_label(label))
+    for sample in samples:
+        X.append(feature_vector(sample.text))
+        y.append(encode_label(sample.label))
 
     return X, y
