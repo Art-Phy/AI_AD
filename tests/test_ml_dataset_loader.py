@@ -1,5 +1,6 @@
 import pytest
 
+from aidetect.ml_dataset import build_dataset
 from aidetect.ml_dataset_loader import (
     count_words,
     load_dataset_csv,
@@ -108,3 +109,22 @@ def test_load_dataset_rejects_missing_columns(tmp_path):
 
     with pytest.raises(ValueError, match="Faltan columnas obligatorias"):
         load_dataset_csv(csv_file)
+
+
+
+def test_ml_baseline_dataset_loads():
+    samples = load_dataset_csv("data/ml_baseline.csv")
+    X, y = build_dataset(samples)
+
+    assert len(samples) > 0
+    assert len(X) == len(samples)
+    assert len(y) == len(samples)
+    assert all(len(row) == 5 for row in X)
+
+
+def test_ml_baseline_contains_both_labels():
+    samples = load_dataset_csv("data/ml_baseline.csv")
+
+    labels = {sample.label for sample in samples}
+
+    assert labels == {"human", "ai"}
