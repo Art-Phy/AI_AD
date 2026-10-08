@@ -1,0 +1,51 @@
+id,text,label,topic,source
+
+
+human_001,"Empecé a correr hace un par de años. Simplemente quería retomar un hábito que había dejado hacía muchos años. No es que me guste especialmente, pero viene bien para el cardio y los pulmones. Al final, la broma se me fue de las manos, me apunté a una 10k y genial, y de ahí terminé haciendo 2 medias maratones en el mismo año. Está visto que no sé hacer deporte sin motivarme con un extra. Ahora estoy pensando en empezar a meter trail también, ya que la montaña me gusta mucho y sería la excusa perfecta para ir más.
+
+Me gusta correr con frío, pero reconozco que mi cuerpo rinde más cuando hace mucho calor, sudo mucho y tengo que estar más pendiente de la hidratación, pero noto que mi cuerpo rinde mejor con esos esfuerzos más brutales que cuando voy cómodo. 
+
+Corro con ASICS, me encanta esa marca, es japonesa y hace cosas de calidad. Las zapatillas son las Novablast útlimas que haya, aunque estoy pensando en probar por primera vez, sólo para carreras, unas de suela de carbono y dejar las Novablast para los entrenos. La ropa es una pasada también, tengo una par de prendas de entretiempo que son una maravilla, el sudo lo evacúa como si no sudase y las mallas cortas para correr son brutales.",human,running,manual
+
+
+human_002,"Los entrenamientos varían según el turno de trabajo que tenga. Para mi lo ideal es salir a correr martes, jueves y sábado. Hubo un tiempo en que salía más días a la semana, pero eso ya no me es posible por falta de tiempo. Los lunes entreno pierna en el gimnasio, fuerza, los martes salgo a correr y hago Vo2 Max, es el entrenamiento más duro de la semana con diferencia porque casi me llevo al límite, pero reconozco que es el que más me gusta de todos. 
+
+Los jueves hago tirada en Zona 2. Si estoy en preparación de alguna carrera, hago la distancia que me convenga, si no es para ninguna carrera en concreto, entonces me gusta salir 1h más o menos. Es el que menos me gusta porque tiene uno que ir conteniendo todo el rato, y eso no es fácil.
+
+Los sábados hago la tirada larga, suele ser en zona 2 también, pero se alternan tramos de zona 3 que hace que me den vidilla. Aquí si que es verdad que menos de 10-12 km no hago. Si estoy en fase de preparación de media maratón puede llegar a 17 km.",human,running,manual
+
+
+human_003,"Para mejorar en el running, en mi opinión, no basta sólo con entrenar. Por muy duro que entrene uno nunca va a ser tan duro como una carrera real. Aunque uno quiera tomársela tranquila, al final se deja llevar por el ambiente, el resto de corredores y el propio ego de uno. Se nota mucho lo importante que es la experiencia en el running, pones el cuerpo en unas situaciones donde no has llegado a tenerlo antes, y eso hace que te conozcas mejor. Hay que ponerse al límite para conocer y reconocer lo que a uno le está pasando, y así poder saber cuándo parar, seguir o incluso apretar.
+
+En mi primera media maratón, cuando iba por el km 17, el cuerpo me petó, es cierto que no hice las cosas bien, desayuné poco, casi nada, y eso fue un error grave. Llevo siempre un gel de emergencia, ya que no me gusta tomarlos, pero fue con lo que pude terminar la carrera. La cabeza me lo estaba poniendo más difícil todavía, me desconcentré. Una vez que conseguí reponerme, mentalmente sobre todo, conseguí llegar a la meta, la sensación fue una pasada, no tanto por haber llegado, si no por haberme podido reponer de una situación tan chunga.
+
+Para la segunda media ya no me pasó lo de la comida. Conseguí bajar mi tiempo, me llevé al límite, había una humedad brutal, pero como dije al principio, las situaciones extremas se me dan mejor que las condiciones ideales. Lo pasé muy mal, como todos, pero la recompensa y la sensación fueron mucho más satisfactorias.",human,running,manual
+
+
+ai_001,"Empezar a correr después de varios meses de inactividad requiere algo de paciencia. Lo más importante al principio no es correr rápido ni acumular muchos kilómetros, sino conseguir que el cuerpo se acostumbre de nuevo al impacto y al esfuerzo cardiovascular. Una buena forma de empezar es alternar periodos cortos de carrera suave con caminatas, especialmente durante las primeras semanas. Esto permite aumentar el volumen de entrenamiento sin sobrecargar demasiado las piernas.
+
+También conviene prestar atención a las sensaciones. Un ritmo adecuado para empezar debería permitir mantener una conversación sin demasiada dificultad. Si cada salida termina siendo un esfuerzo máximo, probablemente la intensidad sea demasiado alta. A medida que pasan las semanas se pueden alargar progresivamente los tramos corriendo y reducir los descansos caminando.
+
+Otro aspecto importante es la regularidad. Tres sesiones semanales suelen ser suficientes para mejorar al principio si se combinan con descanso y algo de trabajo de fuerza. No es necesario correr todos los días. De hecho, descansar bien puede ayudar más que añadir una sesión extra cuando el cuerpo todavía no está preparado.
+
+Con el tiempo, la mejora llega de forma bastante natural. La clave está en mantener una progresión razonable, evitar compararse demasiado con otros corredores y dejar que el cuerpo se adapte.",ai,running,generated
+
+
+ai_002,"Correr puede parecer una actividad muy simple: ponerse unas zapatillas, salir de casa y empezar a moverse. Sin embargo, con el tiempo puede convertirse en algo bastante más personal. Para muchas personas deja de ser únicamente una forma de hacer ejercicio y pasa a ser un momento de desconexión, una rutina o incluso una manera de ordenar pensamientos.
+
+Hay días en los que correr resulta fácil y otros en los que cada kilómetro parece más largo de lo normal. Esa irregularidad forma parte de la experiencia. El cuerpo no siempre responde igual y factores como el descanso, el estrés, la alimentación o el clima pueden cambiar completamente una sesión. Aprender a aceptar esos días malos también forma parte del proceso.
+
+Una de las cosas interesantes del running es que el progreso no siempre se mide únicamente con tiempos. Poder correr más distancia sin terminar agotado, mantener un ritmo cómodo durante más tiempo o recuperarse mejor entre entrenamientos también son señales claras de mejora.
+
+Además, correr ofrece una sensación de autonomía difícil de encontrar en otros deportes. No hace falta depender de un horario, un equipo o una instalación concreta. Basta con encontrar un momento y salir. Quizá por eso muchas personas terminan incorporándolo a su vida de una forma que al principio no esperaban.",ai,running,generated
+
+
+ai_003,"Preparar una carrera de 10 kilómetros exige combinar distintos tipos de entrenamiento. Aunque muchas personas tienden a centrarse únicamente en correr más distancia, una planificación equilibrada suele incluir rodajes suaves, sesiones de intensidad y algo de trabajo de fuerza.
+
+Los rodajes a ritmo cómodo sirven para desarrollar la base aeróbica y mejorar la capacidad del cuerpo para mantener esfuerzos prolongados. Estas sesiones no deberían resultar especialmente exigentes y permiten acumular kilómetros sin generar demasiada fatiga. Por otro lado, los entrenamientos de intervalos o cambios de ritmo ayudan a mejorar la velocidad y la capacidad de sostener intensidades más altas durante la carrera.
+
+La fuerza también juega un papel importante. Trabajar piernas, glúteos y zona media puede mejorar la estabilidad y ayudar a soportar mejor el impacto repetido de la carrera. Además, introducir días de descanso facilita la recuperación y reduce el riesgo de sobrecarga.
+
+Durante las últimas semanas antes de la competición suele ser recomendable reducir progresivamente el volumen para llegar con menos fatiga acumulada. También conviene evitar estrenar material o realizar cambios importantes justo antes del día de la prueba.
+
+El objetivo de una buena preparación no es terminar cada entrenamiento agotado, sino llegar a la carrera con una combinación adecuada de resistencia, velocidad y recuperación.",ai,running,generated
