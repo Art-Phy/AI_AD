@@ -22,6 +22,29 @@ En mi primera media maratón, cuando iba por el km 17, el cuerpo me petó, es ci
 Para la segunda media ya no me pasó lo de la comida. Conseguí bajar mi tiempo, me llevé al límite, había una humedad brutal, pero como dije al principio, las situaciones extremas se me dan mejor que las condiciones ideales. Lo pasé muy mal, como todos, pero la recompensa y la sensación fueron mucho más satisfactorias.",human,running,manual
 
 
+human_004,"Empecé a leer con 3-4 años, antes de cuando suelen hacerlo los demás niños. Siempre me han fascinado los libros y de niño era un adicto a los de Mortadelo y Filemón, son de los mejore recuerdos que tengo desde niño, leer todas las historietas de ellos dos, me acuerdo y me sale una sonrisa.
+
+Cuando crecí un poco más empecé a variar, no sólo leía los cómics, sino libros algo más densos. Realmente leía todo lo que caía en mis manos. Filosofía, Historia, Ciencia, etc. Recuerdo pasarme horas ojeando una enciclopedia que teníamos en casa. Más tarde, cuando apareció la Encarta para PC, amplié mis horas de lectura en libros físicos y artículos random de la Encarta, sobre todo de biología, naturaleza, espacio y por supuesto, mundo marino.
+
+Sigo guardando con cariño todos y cada uno de los libros que me he leído, comprado o me han regalado. Son mi mayor tesoro, horas y horas de sabiduría, de escape de la realidad, de ejercicio para el cerebro y de crecimiento de uno mismo. Nunca he dejado de leer y nunca dejaré de hacerlo, es lo que más me gusta en el mundo.",human,reading,manual
+
+
+human_005,"Me cuesta trabajo decidirme sólo por un género de lectura, me gustan desde los cómics (manga), los libros técnicos de historia o geología, ciencia ficción, pasando por filosofía y los que, probablemente, si pueda catalogar como género favorito, los históricos, no sólo los técnicos si no las novelas históricas también.
+
+Mi escritor favorito siempre ha sido Javier Sierra, no es el único pero sí es verdad que si saca un libro me lo compro sin leer siquiera cuál es el tema. He crecido leyendo sus libros y lo siento como si lo conociese, aparte de que su cabeza es impresionante, esa cantidad de información almacenada en su cerebro es oro. 
+
+Juan Gómez Jurado es un novelista que también me gusta mucho, no es histórico y es probablemente, el único autor de ese estilo que leo casi todo lo que saca. Son libros más de misterio-policial, thriller creo yo. Pero su forma de escribir es tan natural y amena que hace que aparezcan sus palabras en tu cabeza en forma de imágenes sin ninguna dificultad. Se monta uno mismo la película conforme lee sus libros.",human,reading,manual
+
+
+human_006,"No puedo quedarme solo con un libro de todos los que he leído, ni con cuál ha sido el que más me ha impactado de todos. Creo que cada libro tiene su etapa y, dependiendo de la situación, me ha podido afectar más o menos. Si es cierto que, de toda la colección que tengo, hay unos libros que siempre me llevo allá donde me mude.
+
+La Undécima Revelación de James Redfield, Dioses y Mitos del Antiguo Egipto de Robert A. Armour, 20000 Leguas de viaje submarino de Julio Verne, La Cena Secreta, de Javier Sierra.
+
+No sabría decir el motivo, pero son libros que en su momento han significado algo muy importante para mi, a veces por el libro en sí, por el momento qué estaba pasando personalmente o simplemente por la persona que me lo regaló. Todos los años sumo unos 15-20 libros nuevos a mi colección, leo mucho, pero esos que menciono siempre han venido conmigo los primeros cuando me he mudado de piso, de ciudad e incluso de país. Son mi tesoro.",human,reading,manual
+
+
+
+
 ai_001,"Empezar a correr después de varios meses de inactividad requiere algo de paciencia. Lo más importante al principio no es correr rápido ni acumular muchos kilómetros, sino conseguir que el cuerpo se acostumbre de nuevo al impacto y al esfuerzo cardiovascular. Una buena forma de empezar es alternar periodos cortos de carrera suave con caminatas, especialmente durante las primeras semanas. Esto permite aumentar el volumen de entrenamiento sin sobrecargar demasiado las piernas.
 
 También conviene prestar atención a las sensaciones. Un ritmo adecuado para empezar debería permitir mantener una conversación sin demasiada dificultad. Si cada salida termina siendo un esfuerzo máximo, probablemente la intensidad sea demasiado alta. A medida que pasan las semanas se pueden alargar progresivamente los tramos corriendo y reducir los descansos caminando.
@@ -49,3 +72,30 @@ La fuerza también juega un papel importante. Trabajar piernas, glúteos y zona 
 Durante las últimas semanas antes de la competición suele ser recomendable reducir progresivamente el volumen para llegar con menos fatiga acumulada. También conviene evitar estrenar material o realizar cambios importantes justo antes del día de la prueba.
 
 El objetivo de una buena preparación no es terminar cada entrenamiento agotado, sino llegar a la carrera con una combinación adecuada de resistencia, velocidad y recuperación.",ai,running,generated
+
+
+ai_004,"Leer con frecuencia puede aportar beneficios que van mucho más allá del entretenimiento. La lectura ayuda a ampliar vocabulario, mejora la comprensión y obliga a mantener la atención durante periodos más largos. Además, dependiendo del tipo de libro, también puede ofrecer nuevas perspectivas sobre temas históricos, científicos, sociales o personales.
+
+Uno de los aspectos más interesantes de la lectura es que no existe una única forma correcta de practicarla. Algunas personas prefieren leer novelas durante horas, mientras que otras disfrutan más con ensayos, cómics, biografías o libros técnicos. Lo importante es encontrar un tipo de lectura que resulte atractivo y permita mantener el hábito con cierta regularidad.
+
+También puede ser útil reservar un momento concreto del día para leer. No hace falta dedicar demasiado tiempo. Incluso veinte o treinta minutos diarios pueden ser suficientes para avanzar en un libro y convertir la lectura en una rutina estable.
+
+Con el tiempo, leer de forma constante puede hacer que resulte más fácil concentrarse y enfrentarse a textos más complejos. También permite descubrir autores, géneros e ideas que quizá no habrían aparecido de otra forma. Por eso, más que plantearse la lectura como una obligación, suele ser más útil verla como una forma de curiosidad y aprendizaje continuo.",ai,reading,generated
+
+
+ai_005,"Elegir el siguiente libro puede ser casi tan difícil como terminar el anterior, especialmente cuando existen muchos géneros interesantes. Una forma sencilla de decidir consiste en alternar estilos. Después de una novela larga, por ejemplo, puede apetecer leer un ensayo breve, un cómic o algún libro de divulgación. Esto evita la sensación de estar leyendo siempre el mismo tipo de contenido.
+
+También es habitual dejarse llevar por recomendaciones, aunque no siempre funcionan igual para todo el mundo. Un libro muy valorado puede no conectar con una persona concreta, mientras que otro menos conocido puede convertirse en una lectura inolvidable. Por eso resulta útil combinar recomendaciones externas con los propios intereses.
+
+El momento personal también influye bastante. Hay etapas en las que apetece leer historias ligeras y otras en las que resulta más atractivo profundizar en historia, filosofía, ciencia o temas técnicos. Incluso un mismo libro puede provocar impresiones distintas dependiendo de cuándo se lea.
+
+Mantener cierta variedad permite descubrir autores y géneros nuevos sin abandonar los favoritos. No es necesario elegir una categoría definitiva ni limitarse a un tipo concreto de obra. Al final, una biblioteca personal suele terminar reflejando intereses muy diferentes y también las distintas etapas por las que ha pasado su lector.",ai,reading,generated
+
+
+ai_006,"Algunos libros permanecen en la memoria mucho tiempo después de haber terminado de leerlos. No siempre ocurre porque sean considerados obras maestras o porque tengan una historia especialmente compleja. A veces el vínculo aparece simplemente porque fueron leídos en un momento concreto de la vida y terminaron asociados a recuerdos personales.
+
+Un libro regalado por alguien importante puede adquirir un valor completamente distinto al de otro ejemplar comprado por casualidad. Lo mismo ocurre con una novela leída durante un viaje, una etapa difícil o un periodo de grandes cambios. Con el paso del tiempo, esos libros pueden convertirse en objetos que representan algo más que su propio contenido.
+
+Por eso muchas personas conservan determinados ejemplares aunque no tengan intención de volver a leerlos inmediatamente. Forman parte de una colección, pero también de una historia personal. Mudarse de casa y decidir qué libros acompañarán primero el traslado puede revelar cuáles tienen un significado especial.
+
+Una biblioteca personal acaba siendo una mezcla de conocimientos, entretenimiento y recuerdos. Algunos libros se olvidan rápidamente, mientras que otros siguen presentes durante años. En muchos casos, el motivo no depende únicamente de lo que escribió el autor, sino también de quién era el lector cuando llegó a esas páginas.",ai,reading,generated
