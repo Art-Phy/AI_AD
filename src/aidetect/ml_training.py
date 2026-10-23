@@ -1,5 +1,8 @@
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
 
 
 def split_dataset(
@@ -22,11 +25,19 @@ def split_dataset(
 def train_logistic_regression(
     X_train: list[list[float]],
     y_train: list[int],
-) -> LogisticRegression:
-    """Entrena un modelo Logistic Regression con el dataset de entrenamiento"""
-    model = LogisticRegression(
-        random_state=42,
-        max_iter=1000,
+) -> Pipeline:
+    """Entrena un pipeline con estandarización y Logistic Regression"""
+    model = Pipeline(
+        steps=[
+            ("scaler", StandardScaler()),
+            (
+                "classifier",
+                LogisticRegression(
+                    random_state=42,
+                    max_iter=1000,
+                ),
+            ),
+        ]
     )
 
     model.fit(X_train, y_train)

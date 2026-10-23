@@ -1,6 +1,9 @@
 from collections import Counter
 
 from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
 from aidetect.ml_training import split_dataset, train_logistic_regression
 
 
@@ -35,6 +38,15 @@ def test_train_logistic_regression():
 
     model = train_logistic_regression(X, y)
 
-    assert isinstance(model, LogisticRegression)
-    assert hasattr(model, "coef_")
-    assert hasattr(model, "intercept_")
+    assert isinstance(model, Pipeline)
+
+    assert isinstance(model.named_steps["scaler"], StandardScaler)
+    assert isinstance(
+        model.named_steps["classifier"],
+        LogisticRegression,
+    )
+
+    classifier = model.named_steps["classifier"]
+
+    assert hasattr(classifier, "coef_")
+    assert hasattr(classifier, "intercept_")
