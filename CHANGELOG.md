@@ -2,6 +2,54 @@
 Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 ---
 
+### Unreleased
+
+#### Added
+
+- Añadido el primer baseline funcional de Machine Learning.
+- Añadido un dataset piloto de 60 muestras balanceadas:
+  - 30 textos humanos.
+  - 30 textos generados por IA.
+  - 10 topics con 6 muestras por topic.
+- Añadido modelo de datos para muestras ML mediante `DatasetSample`.
+- Añadido loader CSV con validación de estructura, labels, longitud e IDs duplicados.
+- Añadida extracción de features específica para Machine Learning.
+- Añadido vector ordenado de features para entrenamiento.
+- Añadido split estratificado entre entrenamiento y test.
+- Añadido pipeline de entrenamiento basado en:
+  - `StandardScaler`
+  - `LogisticRegression`
+- Añadidas métricas de evaluación:
+  - accuracy
+  - precision
+  - recall
+  - F1
+  - matriz de confusión
+- Añadida validación cruzada estratificada mediante `StratifiedKFold`.
+- Añadidos tests para dataset, loader, features, entrenamiento y evaluación ML.
+
+#### Changed
+
+- Sustituido el entrenamiento directo de `LogisticRegression` por un `Pipeline` de scikit-learn con estandarización previa.
+- Eliminada la interfaz antigua del dataset basada en tuplas en favor de `DatasetSample`.
+- Normalizadas las predicciones ML a enteros Python para evitar exponer tipos específicos de NumPy.
+- Actualizada la documentación de `develop` para reflejar el estado experimental del baseline ML.
+
+#### Experimental
+
+- El baseline ML utiliza actualmente cinco features:
+  - `avg_sentence_length`
+  - `sentence_length_variance`
+  - `lexical_diversity`
+  - `punctuation_ratio`
+  - `max_word_frequency_ratio`
+- El sistema ML todavía no está integrado en la CLI, API ni Web UI.
+- El detector público continúa utilizando el sistema heurístico estable.
+- El dataset actual debe considerarse únicamente un baseline experimental.
+- Las métricas actuales no deben interpretarse como rendimiento representativo en producción debido al tamaño y diversidad limitada del dataset.
+
+---
+
 ### v1.0.2 - 22.07.2026
 
 #### Added
