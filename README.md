@@ -1,6 +1,6 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-green)
-![Tests](https://img.shields.io/badge/Tests-24_Passing-success)
+![Tests](https://img.shields.io/badge/Tests-48_Passing-success)
 ![Version](https://img.shields.io/badge/Version-v1.0.2-orange)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
@@ -8,7 +8,9 @@
 
 Detector experimental de autoría de texto para estimar si un contenido ha sido generado por una IA o escrito por una persona.
 
-El sistema se basa en **heurísticas explicables** y devuelve siempre una **estimación probabilística**, nunca certezas absolutas.
+El sistema estable se basa actualmente en **heurísticas explicables** y devuelve siempre una **estimación probabilística**, nunca certezas absolutas.
+
+La rama `develop` incorpora además un **baseline experimental de Machine Learning** destinado a investigar nuevas estrategias de clasificación antes de integrarlas en el detector principal.
 
 Incluye:
 
@@ -20,6 +22,8 @@ Incluye:
 - Logging estructurado en JSON
 - Endpoint de reportes descargables
 - Controles de privacidad para reportes
+- Pipeline experimental de Machine Learning
+- Evaluación mediante métricas y validación cruzada
 
 ---
 
@@ -37,13 +41,88 @@ Incluye:
 - Web UI integrada en FastAPI
 - Reportes JSON con persistencia opcional
 - Tests automatizados y releases versionadas
-- Sin dependencias pesadas de Machine Learning
+- Baseline experimental de Machine Learning basado en Logistic Regression
+- Pipeline de entrenamiento con estandarización mediante `StandardScaler`
+- División estratificada de datos de entrenamiento y test
+- Evaluación mediante accuracy, precision, recall, F1 y matriz de confusión
+- Validación cruzada estratificada mediante 5 folds
 
 ---
 
 #### Estado
 
-- **v1.0.2:** Versión estable preparada para despliegue.
+- **Release estable:** `v1.0.2`
+- **Rama `develop`:** incorpora un baseline experimental de Machine Learning actualmente en fase de análisis y mejora.
+
+El sistema ML todavía **no está conectado a la CLI, API ni Web UI**.
+
+El detector utilizado por las interfaces públicas continúa siendo el sistema heurístico estable.
+
+---
+
+#### Machine Learning Baseline
+
+La rama `develop` incorpora el primer pipeline funcional de Machine Learning de AI Authorship Detector.
+
+El objetivo actual no es sustituir inmediatamente al detector heurístico, sino disponer de una base reproducible para experimentar, medir resultados y comparar distintos enfoques.
+
+El pipeline utiliza cinco características lingüísticas:
+
+- `avg_sentence_length`
+- `sentence_length_variance`
+- `lexical_diversity`
+- `punctuation_ratio`
+- `max_word_frequency_ratio`
+
+Flujo actual:
+
+```text
+Texto
+  ↓
+Extracción de features
+  ↓
+StandardScaler
+  ↓
+Logistic Regression
+  ↓
+Clasificación
+```
+
+El entrenamiento utiliza:
+
+- `StandardScaler`
+- `LogisticRegression`
+- división `train/test` estratificada
+- `random_state` fijo para reproducibilidad
+- validación cruzada mediante `StratifiedKFold`
+
+El dataset piloto actual contiene:
+
+```text
+60 muestras
+├── 30 human
+└── 30 ai
+
+10 topics
+└── 6 muestras por topic
+```
+
+Cada topic contiene tres textos humanos y tres textos generados por IA.
+
+El dataset se utiliza actualmente como **baseline experimental y de validación del pipeline**, no como conjunto de datos suficiente para realizar afirmaciones generales sobre detección de contenido generado por IA.
+
+##### Limitaciones actuales del baseline ML
+
+El dataset piloto tiene varias limitaciones conocidas:
+
+- Número reducido de muestras.
+- Los textos humanos proceden actualmente de un único autor.
+- Los textos AI proceden actualmente de un único generador.
+- El modelo puede estar aprendiendo diferencias entre estilos concretos en lugar de patrones universales de autoría humana frente a IA.
+- Las métricas obtenidas deben considerarse experimentales.
+- El modelo todavía no se utiliza en producción ni forma parte de las respuestas de la API.
+
+El siguiente trabajo sobre el baseline está orientado al análisis de errores, ampliación de diversidad del dataset y evaluación de nuevas features únicamente cuando exista evidencia que justifique su incorporación.
 
 ---
 
@@ -162,7 +241,7 @@ AIDETECT_API_KEYS=devkey uvicorn aidetect.api.app:app --reload
 
 Documentación automática:
 
-```
+```text
 http://127.0.0.1:8000/docs
 ```
 
@@ -185,7 +264,7 @@ http://127.0.0.1:8000/docs
 
 La API incorpora una interfaz web ligera para usuarios no técnicos.
 
-```
+```text
 http://127.0.0.1:8000/ui
 ```
 
@@ -251,17 +330,17 @@ export AIDETECT_LOG_BACKUP_COUNT=3
 
 #### Reportes
 
-```
+```text
 POST /v1/analyze/text/report
 ```
 
 Devuelve un informe completo con:
 
-- generated_at
-- request_id
-- input
-- result
-- saved_to (si se guarda en disco)
+- `generated_at`
+- `request_id`
+- `input`
+- `result`
+- `saved_to` (si se guarda en disco)
 
 Guardar automáticamente los reportes:
 
@@ -282,7 +361,7 @@ Por defecto el informe **no almacena el texto completo**, únicamente su longitu
 
 Si se desea incluir el texto completo:
 
-```
+```text
 POST /v1/analyze/text/report?include_text=true
 ```
 
@@ -298,7 +377,9 @@ POST /v1/analyze/text/report?include_text=true
 - El uso de API Keys por query parameter está pensado únicamente para desarrollo local y la Web UI.
 - En producción se recomienda utilizar siempre el header `X-API-Key`.
 - Los textos híbridos tienden a clasificarse como **uncertain**.
+- El baseline ML actual utiliza un dataset piloto pequeño y no debe interpretarse como un modelo listo para producción.
+- El sistema ML todavía no forma parte de la CLI, API ni Web UI.
 
 ---
 
-Este proyecto sigue versionado **Semantic Versioning (SemVer)**. Durante la fase experimental utilizó la serie `0.y.z`.
+Este proyecto sigue versionado mediante **Semantic Versioning (SemVer)**. Durante la fase experimental utilizó la serie `0.y.z`.
