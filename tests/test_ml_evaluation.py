@@ -1,5 +1,4 @@
-from aidetect.ml_evaluation import evaluate_model
-
+from aidetect.ml_evaluation import cross_validate_model, evaluate_model
 
 
 class DummyModel:
@@ -42,3 +41,18 @@ def test_evaluate_model_with_errors():
     assert result["recall"] == 0.5
     assert result["f1"] == 0.5
     assert result["confusion_matrix"] == [[1, 1], [1, 1]]
+
+
+
+def test_cross_validate_model_returns_five_folds():
+    X = [[float(i)] for i in range(20)]
+    y = [0] * 10 + [1] * 10
+
+    result = cross_validate_model(X, y, n_splits=5)
+
+    assert len(result["folds"]) == 5
+
+    assert 0.0 <= result["mean_accuracy"] <= 1.0
+    assert 0.0 <= result["mean_precision"] <= 1.0
+    assert 0.0 <= result["mean_recall"] <= 1.0
+    assert 0.0 <= result["mean_f1"] <= 1.0
