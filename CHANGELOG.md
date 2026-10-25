@@ -1,21 +1,80 @@
+This project follows Semantic Versioning (SemVer-style while experimental).
 
-Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
+---
+
+### Unreleased
+
+---
+
+### v1.1.0 - 25.10.2026
+
+#### Added
+
+- Added the first functional Machine Learning baseline.
+- Added a pilot dataset with 60 balanced samples:
+  - 30 human-written texts.
+  - 30 AI-generated texts.
+  - 10 topics with 6 samples per topic.
+- Added the `DatasetSample` data model for ML samples.
+- Added a CSV dataset loader with validation for structure, labels, text length, and duplicate IDs.
+- Added ML-specific feature extraction.
+- Added ordered feature vectors for model training.
+- Added stratified train/test splitting.
+- Added a training pipeline based on:
+  - `StandardScaler`
+  - `LogisticRegression`
+- Added evaluation metrics:
+  - accuracy
+  - precision
+  - recall
+  - F1
+  - confusion matrix
+- Added stratified cross-validation using `StratifiedKFold`.
+- Added sample-level error analysis.
+- Added tests for dataset handling, loading, feature extraction, training, evaluation, and cross-validation.
+
+#### Changed
+
+- Replaced direct `LogisticRegression` training with a scikit-learn `Pipeline` including feature standardization.
+- Replaced the previous tuple-based dataset interface with `DatasetSample`.
+- Normalized ML predictions to native Python integers to avoid exposing NumPy-specific types.
+- Updated project documentation to describe the experimental ML baseline and its current limitations.
+
+#### Experimental
+
+- The ML baseline currently uses five features:
+  - `avg_sentence_length`
+  - `sentence_length_variance`
+  - `lexical_diversity`
+  - `punctuation_ratio`
+  - `max_word_frequency_ratio`
+- Cross-validation on the pilot dataset achieved a mean accuracy of `0.917`.
+- Mean precision was `0.891`.
+- Mean recall was `1.000`.
+- Mean F1 score was `0.935`.
+- Error analysis identified 5 false positives, all corresponding to human-written texts classified as AI.
+- Three of the five false positives belonged to the `social_media` topic.
+- The current dataset contains samples from a single human author and a single AI generator.
+- The current results should be considered experimental and are not representative of production performance.
+- The ML system is not yet integrated into the CLI, API, or Web UI.
+- The public detector continues to use the stable heuristic system.
+
 ---
 
 ### v1.0.2 - 22.07.2026
 
 #### Added
 
-- Nueva sección de Deployment en el README.
-- Documentadas las variables de entorno para despliegues.
-- Mejoras generales de formato y ejemplos.
+- Added a new Deployment section to the README.
+- Documented environment variables for deployment.
+- Improved formatting and examples throughout the documentation.
 
 #### Deployment
 
-- Validado el despliegue completo en Linux mediante `systemd`.
-- Configuración mediante `EnvironmentFile`.
-- Funcionamiento verificado tras reinicio del sistema.
-- Validado el despliegue en Raspberry Pi como servicio persistente.
+- Validated full deployment on Linux using `systemd`.
+- Added configuration through `EnvironmentFile`.
+- Verified correct operation after system restart.
+- Validated persistent deployment on Raspberry Pi.
 
 ---
 
@@ -23,12 +82,12 @@ Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
 #### Added
 
-- Configuración del host de la API mediante `AIDETECT_API_HOST`.
-- Configuración del puerto de la API mediante `AIDETECT_API_PORT`.
+- Added API host configuration through `AIDETECT_API_HOST`.
+- Added API port configuration through `AIDETECT_API_PORT`.
 
 #### Deployment
 
-- Preparación del comando `aidetect-api` para despliegues en servidores y redes locales.
+- Prepared the `aidetect-api` command for deployment on servers and local networks.
 
 ---
 
@@ -36,56 +95,61 @@ Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 
 #### Stable Release
 
-- Primera versión estable del proyecto.
-- Consolidación de todas las funcionalidades desarrolladas durante la serie v0.x.
-- Preparado para uso como herramienta CLI, API REST e interfaz web integrada.
+- First stable release of the project.
+- Consolidated all functionality developed throughout the v0.x series.
+- Prepared for use as a CLI tool, REST API, and integrated Web UI.
 
 #### Packaging
 
-- Distribución como paquete Python instalable.
-- Nuevos comandos:
+- Distributed as an installable Python package.
+- Added new commands:
   - `aidetect-cli`
   - `aidetect-api`
-- Configuración mediante `pyproject.toml`.
+- Added configuration through `pyproject.toml`.
 
 #### Infrastructure
 
-- Revisión completa de estructura y configuración del proyecto.
-- Validación de instalación en entorno limpio.
-- Actualización de documentación y versión estable.
+- Completed a full review of the project structure and configuration.
+- Validated installation in a clean environment.
+- Updated documentation and stable version metadata.
 
 #### Testing
 
-- Suite completa de tests validada antes de la release.
-- Compatibilidad verificada para CLI, API, UI, reporting, logging y seguridad.
+- Validated the complete test suite before release.
+- Verified compatibility across CLI, API, UI, reporting, logging, and security.
 
 ---
 
 ### v0.9.0 - 09.03.2026
 
 #### Added
-- Opción `include_text` en el endpoint `/v1/analyze/text/report`.
-- Permite incluir el texto completo dentro del informe solo cuando se solicita explícitamente.
+
+- Added the `include_text` option to the `/v1/analyze/text/report` endpoint.
+- Allows the full text to be included in the report only when explicitly requested.
 
 #### Privacy
-- Por defecto los reportes solo almacenan `text_length`.
-- El texto completo solo se guarda cuando `include_text=true`.
+
+- Reports store only `text_length` by default.
+- Full text is stored only when `include_text=true`.
 
 #### UI
-- Checkbox en la Web UI para incluir el texto completo en el informe.
-- Aviso de privacidad para evitar guardar contenido sensible accidentalmente.
+
+- Added a Web UI checkbox to include the full text in the report.
+- Added a privacy notice to help prevent accidental storage of sensitive content.
 
 ---
 
 ### v0.8.0 - 05.03.2026
 
 #### Added
-- Logging estructurado en JSON (una línea por evento) para trazabilidad y observabilidad.
-- Configuración por variables de entorno para nivel de log y fichero rotativo.
+
+- Added structured JSON logging with one line per event for traceability and observability.
+- Added environment-based configuration for log level and rotating log files.
 
 #### Environment
+
 - `AIDETECT_LOG_LEVEL` (default: `INFO`)
-- `AIDETECT_LOG_FILE` (opcional): ruta del fichero de logs (si no se define, solo consola)
+- `AIDETECT_LOG_FILE` (optional): log file path. If undefined, logs are written only to console.
 - `AIDETECT_LOG_MAX_BYTES` (default: `1000000`)
 - `AIDETECT_LOG_BACKUP_COUNT` (default: `3`)
 
@@ -94,124 +158,147 @@ Este proyecto sigue un versionado tipo SemVer (O.y.z mientras sea experimental).
 ### v0.7.0 - 27.02.2026
 
 #### Added
-- Nuevo endpoint `POST /v1/analyze/text/report` que devuelve un informe completo (report) con metadatos.
-- Persistencia opcional de reportes en disco mediante `AIDETECT_REPORTS_DIR`.
-- La Web UI ahora consume el endpoint de report y permite descargar el informe tal cual lo devuelve la API.
+
+- Added the `POST /v1/analyze/text/report` endpoint returning a complete report with metadata.
+- Added optional report persistence through `AIDETECT_REPORTS_DIR`.
+- Updated the Web UI to consume the report endpoint and download the report exactly as returned by the API.
 
 #### Environment
-- `AIDETECT_REPORTS_DIR` (opcional): ruta donde guardar reportes en JSON.
+
+- `AIDETECT_REPORTS_DIR` (optional): directory where JSON reports are stored.
 
 ---
 
 ### v0.6.0 - 18.02.2026
 
 #### Added
-- `GET /version` para exponer la versión del servicio.
-- Middleware de `request_id`:
-  - Genera `X-Request-ID` en cada respuesta (o conserva el que envíe el cliente).
-- Logging básico por request (método, path, status, ms, request_id).
-- Web UI: exportar informe en JSON descargable desde la interfaz.
+
+- Added `GET /version` to expose the running service version.
+- Added `request_id` middleware:
+  - Generates `X-Request-ID` for each response or preserves the client-provided value.
+- Added basic per-request logging including method, path, status, duration, and request ID.
+- Added JSON report export from the Web UI.
 
 ---
 
 ### v0.5.0 - 10.02.2026
 
 #### Added
-- Web UI integrada en FastAPI (`GET /ui`) para uso por usuarios no técnicos.
-- Servido de assets estáticos (`/static/app.js`).
-- Mejoras de UX: resumen del resultado y botón para copiar JSON.
+
+- Added an integrated FastAPI Web UI (`GET /ui`) for non-technical users.
+- Added static asset serving through `/static/app.js`.
+- Improved UX with result summaries and a button to copy generated JSON.
 
 #### Notes
-- La API continúa protegida por API key y rate limiting. La UI es una capa ligera sobre `/v1/analyze/text`.
+
+- The API remains protected by API key authentication and rate limiting.
+- The UI acts as a lightweight layer over `/v1/analyze/text`.
 
 ---
 
 ### v0.4.2 - 02.02.2026
 
 #### Fixed
-- La API key por query param (`?api_key=...`) solo se acepta cuando `AIDETECT_UI_MODE=1`.
-- En modo normal (`AIDETECT_UI_MODE=0`), la autenticación se realiza únicamente mediante el header `X-API-Key`.
+
+- API keys passed through the query parameter (`?api_key=...`) are accepted only when `AIDETECT_UI_MODE=1`.
+- In normal mode (`AIDETECT_UI_MODE=0`), authentication is performed exclusively through the `X-API-Key` header.
 
 ---
 
 ### v0.4.1 - 31.01.2026
 
 #### Added
-- Modo de autenticación amigable para UI local (`UI mode`).
-- Posibilidad de pasar la API key por query param (`?api_key=...`) **solo** cuando `AIDETECT_UI_MODE=1`.
+
+- Added a UI-friendly authentication mode for local use.
+- Added support for passing the API key through the query parameter (`?api_key=...`) **only** when `AIDETECT_UI_MODE=1`.
 
 #### Changed
-- La detección de `UI mode` ahora se evalúa en runtime para facilitar tests y configuración dinámica.
+
+- UI mode detection is now evaluated at runtime to simplify testing and dynamic configuration.
 
 #### Security
-- El uso de API key por query param está **deshabilitado por defecto**.
-- Los endpoints `/v1/*` siguen requiriendo API key obligatoria salvo en modo explícito de UI local.
+
+- API key authentication through query parameters is **disabled by default**.
+- `/v1/*` endpoints continue to require an API key unless explicit local UI mode is enabled.
 
 ---
 
 ### v0.4.0 - 25.01.2026
 
 #### Added
-- Autenticación por API key para endpoints `/v1/*`.
-- Healthcheck público en `/health`.
-- Rate limiting en memoria por API key.
-- Tests para auth y rate limiting (401/429).
+
+- Added API key authentication for `/v1/*` endpoints.
+- Added a public health check at `/health`.
+- Added in-memory rate limiting per API key.
+- Added tests for authentication and rate limiting responses (`401` and `429`).
 
 #### Changed
-- Configuración de rate limiting leída desde entorno de forma configurable para tests y despliegue.
+
+- Rate limiting configuration is now read from environment variables for easier testing and deployment.
 
 #### Fixed
-- Corrección de nombres de variables de entorno para API keys.
+
+- Corrected environment variable names for API keys.
 
 ---
 
 ### v0.3.0 - 18.01.2026
 
 #### Added
-- API REST (FastAPI) para análisis de texto.
-- Documentación automática vía Swager (/docs).
-- Endpoint /v1/analyze/text con soporte de mode.
-- Endpoint /v1/modes para consultar modos disponibles.
-- Endpoint /health para healthcheck.
-- Test de API usando TestClient (Starlette) + httpx.
+
+- Added a REST API using FastAPI for text analysis.
+- Added automatic Swagger documentation at `/docs`.
+- Added `/v1/analyze/text` with mode support.
+- Added `/v1/modes` to expose available detection modes.
+- Added `/health` for health checks.
+- Added API tests using Starlette `TestClient` and `httpx`.
 
 #### Changed
-- README ampliado con sección de API
+
+- Expanded the README with a dedicated API section.
 
 ---
 
 ### v0.2.0 - 31.12.2025
 
 #### Added
-- Modos de detección configurables (`conservative`, `balanced`, `aggressive`).
-- Separación clara entre score y política de clasificación.
-- Inclusión del modo activo en la salida de resultados.
+
+- Added configurable detection modes: `conservative`, `balanced`, and `aggressive`.
+- Added clear separation between scoring and classification policy.
+- Added the active mode to result output.
 
 #### Changed
-- Interpretación del score desacoplada del cálculo de métricas.
-- CLI ampliado con opción `--mode`.
+
+- Decoupled score interpretation from metric calculation.
+- Extended the CLI with the `--mode` option.
 
 #### Fixed
-- Paso correcto de configuración desde CLI al core del detector.
+
+- Fixed configuration flow from CLI to the detector core.
 
 ---
 
 ### v0.1.0 - 26.12.2025
 
 #### Added
-- Detector de autoría de textos basado en heurísticas.
-- CLI funcional con opciones de salida.
-- Métricas lingüisticas explicables.
-- Configuración desacoplada de umbrales.
+
+- Added a heuristic-based text authorship detector.
+- Added a functional CLI with output options.
+- Added explainable linguistic metrics.
+- Added decoupled threshold configuration.
 
 #### Changed
-- Arquitectura modular del análisis de texto.
+
+- Introduced a modular architecture for text analysis.
 
 #### Fixed
-- [x] Configuración correcta de imports y ejecución como paquete.
+
+- Fixed imports and package execution configuration.
 
 ---
+
 ### v0.0.0 - 17.12.2025
-- Estructura inicial del proyecto.
-- Añadidos README, LICENSE, CHANGELOG, requirements y configuración base.
-- Paquete base aidetect y carpeta de tests.
+
+- Added the initial project structure.
+- Added README, LICENSE, CHANGELOG, requirements, and base configuration.
+- Added the base `aidetect` package and test directory.
