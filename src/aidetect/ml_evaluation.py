@@ -67,3 +67,53 @@ def cross_validate_model(
         "mean_recall": sum(recalls) / len(recalls),
         "mean_f1": sum(f1_scores) / len(f1_scores),
     }
+
+
+
+def cross_validate_samples(
+    samples,
+    X: list[list[float]],
+    y: list[int],
+    n_splits: int = 5,
+    random_state: int = 42,
+) -> list[dict]:
+    splitter = StratifiedKFold(
+        n_splits=n_splits,
+        shuffle=True,
+        random_state=random_state,
+    )
+
+    results = []
+
+    for fold_index, (train_indices, test_indices) in enumerate(
+        splitter.split(X, y),
+        start=1,
+    ):
+        X_train = [X[index] for index in train_indices]
+        X_test = [X[index] for index in test_indices]
+        y_train = [y[index] for index in train_indices]
+        y_test = [y[index] for index in test_indices]
+
+        model = train_logistic_regression(X_train, y_train)
+        predictions = model.predict(X_test)
+
+        for sample_index, expected, predicted in zip(
+            test_indices,
+            y_test,
+            predictions,
+        ):
+            sample = samples[sample_index]
+
+            results.append(
+                {
+                    "fold": fold_index,
+                    "id": sample.id,
+                    "topic": sample.topic,
+                    "label": sample.label,
+                    "expected": int(expected),
+                    "predicted": int(predicted),
+                    "correct": int(expected) == int(predicted),
+                }
+            )
+
+    return results
