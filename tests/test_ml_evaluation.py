@@ -1,4 +1,5 @@
-from aidetect.ml_evaluation import cross_validate_model, evaluate_model
+from aidetect.ml_evaluation import cross_validate_model, evaluate_model, cross_validate_samples
+from aidetect.ml_samples import DatasetSample
 
 
 class DummyModel:
@@ -56,3 +57,28 @@ def test_cross_validate_model_returns_five_folds():
     assert 0.0 <= result["mean_precision"] <= 1.0
     assert 0.0 <= result["mean_recall"] <= 1.0
     assert 0.0 <= result["mean_f1"] <= 1.0
+
+
+
+def test_cross_validate_samples_returns_all_samples():
+    samples = [
+        DatasetSample(
+            id=f"sample_{i}",
+            text="example text",
+            label="human" if i < 10 else "ai",
+            topic="test",
+            source="manual" if i < 10 else "generated",
+        )
+        for i in range(20)
+    ]
+
+    X = [[float(i)] for i in range(20)]
+    y = [0] * 10 + [1] * 10
+
+    results = cross_validate_samples(samples, X, y, n_splits=5)
+
+    assert len(results) == 20
+    assert {result["id"] for result in results} == {
+        sample.id for sample in samples
+    }
+    assert all(1 <= result["fold"] <= 5 for result in results)
