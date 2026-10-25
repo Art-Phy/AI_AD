@@ -1,7 +1,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-REST_API-green)
-![Tests](https://img.shields.io/badge/Tests-48_Passing-success)
-![Version](https://img.shields.io/badge/Version-v1.0.2-orange)
+![Tests](https://img.shields.io/badge/Tests-49_Passing-success)
+![Version](https://img.shields.io/badge/Version-v1.1.0-orange)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ### AI Authorship Detector
@@ -51,12 +51,9 @@ Incluye:
 
 #### Estado
 
-- **Release estable:** `v1.0.2`
-- **Rama `develop`:** incorpora un baseline experimental de Machine Learning actualmente en fase de análisis y mejora.
-
-El sistema ML todavía **no está conectado a la CLI, API ni Web UI**.
-
-El detector utilizado por las interfaces públicas continúa siendo el sistema heurístico estable.
+- **v1.1.0:** Primer baseline experimental de Machine Learning.
+- El detector público continúa utilizando el sistema heurístico estable.
+- El pipeline ML está funcional y validado, pero permanece en fase experimental.
 
 ---
 
